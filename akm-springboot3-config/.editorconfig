@@ -1,0 +1,33 @@
+# https://editorconfig.org
+
+root = true
+
+[*]
+# 字符集utf-8
+charset = utf-8
+# 缩进风格：空格
+indent_style = space
+# 使用几个空格缩进
+indent_size = 4
+# 换行符lf
+end_of_line = lf
+# 是否在文件的最后插入一个空行
+insert_final_newline = true
+# 是否删除行尾的空格
+trim_trailing_whitespace = true
+
+# 特定于XML文件的配置
+[*.xml]
+indent_size = 2
+
+# 特定于YAML文件的配置
+[*.yml]
+indent_size = 2
+
+# 如果你也想包括.yaml文件
+[*.yaml]
+indent_size = 2
+
+[*.md]
+insert_final_newline = false
+trim_trailing_whitespace = false

@@ -1,0 +1,97 @@
+// import store from '@/store'
+const menuDemo = [
+  {
+    id: '1',
+    name: 'Demo',
+    orders: 1000,
+    parentId: '0',
+    type: 1,
+    icon: 'el-icon-menu',
+  },
+  {
+    id: '2',
+    name: '用户管理',
+    orders: 1000,
+    parentId: '1',
+    type: 2,
+    uri: '/demo/user',
+    icon: 'el-icon-menu',
+  },
+  {
+    id: '3',
+    name: '全局组件',
+    orders: 1000,
+    parentId: '1',
+    type: 2,
+    uri: '/demo/global-component',
+    icon: 'el-icon-menu',
+  },
+  // {
+  //   id: '4',
+  //   name: '富文本编辑器',
+  //   orders: 1000,
+  //   parentId: '1',
+  //   type: 2,
+  //   uri: '/demo/editor',
+  //   icon: 'el-icon-menu',
+  // },
+  {
+    id: '5',
+    name: '文件上传下载',
+    orders: 1000,
+    parentId: '1',
+    type: 2,
+    uri: '/demo/file',
+    icon: 'el-icon-menu',
+  },
+  {
+    id: '6',
+    name: 'Excel导入导出',
+    orders: 1000,
+    parentId: '1',
+    type: 2,
+    uri: '/demo/excel',
+    icon: 'el-icon-menu',
+  },
+  {
+    id: '7',
+    name: '地图定位',
+    orders: 1000,
+    parentId: '1',
+    type: 2,
+    uri: '/demo/map',
+    icon: 'el-icon-menu',
+  },
+  {
+    id: '8',
+    name: '省市区级联',
+    orders: 1000,
+    parentId: '1',
+    type: 2,
+    uri: '/demo/district',
+    icon: 'el-icon-menu',
+  },
+  {
+    id: '9',
+    name: '行政区域地图',
+    orders: 1000,
+    parentId: '1',
+    type: 2,
+    uri: '/demo/mapArea',
+    icon: 'el-icon-menu',
+  },
+  {
+    id: '10',
+    name: '动态查询条件',
+    orders: 1000,
+    parentId: '1',
+    type: 2,
+    uri: '/demo/demoDynamicCondition',
+    icon: 'el-icon-menu',
+  },
+]
+
+/**
+ * 服务端是生产环境则不显示demo menu
+ */
+export default menuDemo

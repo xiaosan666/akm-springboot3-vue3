@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akm.springboot3.web.sys.mapper.SysApiMapper">
+  <resultMap id="BaseResultMap" type="com.akm.springboot3.web.sys.entity.SysApi">
+    <!--@mbg.generated-->
+    <!--@Table sys_api-->
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+    <result column="type" jdbcType="SMALLINT" property="type"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="uri" jdbcType="VARCHAR" property="uri"/>
+    <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    <result column="orders" jdbcType="INTEGER" property="orders"/>
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="del_flag" jdbcType="SMALLINT" property="delFlag"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, parent_id, type, name, uri, remark, orders, create_user_id, create_time,
+    update_user_id, update_time, del_flag
+  </sql>
+  <insert id="insertSelective" parameterType="com.akm.springboot3.web.sys.entity.SysApi">
+    <!--@mbg.generated-->
+    insert into sys_api
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="parentId != null and parentId != ''">
+        parent_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="uri != null and uri != ''">
+        uri,
+      </if>
+      <if test="remark != null and remark != ''">
+        remark,
+      </if>
+      <if test="orders != null">
+        orders,
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        update_user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null and parentId != ''">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null and uri != ''">
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.akm.springboot3.web.sys.entity.SysApi">
+    <!--@mbg.generated-->
+    update sys_api
+    <set>
+      <if test="parentId != null and parentId != ''">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null and uri != ''">
+        uri = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        orders = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!--auto generated by MybatisCodeHelper on 2019-08-15-->
+  <select id="findByAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_api
+    where del_flag = 0
+    <if test="id != null">
+      and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="parentId != null">
+      and parent_id = #{parentId,jdbcType=VARCHAR}
+    </if>
+    <if test="name != null">
+      and name = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="uri != null">
+      and uri = #{uri,jdbcType=VARCHAR}
+    </if>
+    <if test="remark != null">
+      and remark = #{remark,jdbcType=VARCHAR}
+    </if>
+    <if test="orders != null">
+      and orders = #{orders,jdbcType=INTEGER}
+    </if>
+    order by orders desc
+  </select>
+
+  <update id="batchDel">
+    update sys_api
+    set del_flag= 1,
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where id in
+    <foreach close=")" collection="idList" item="item" open="(" separator=", ">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+
+  <!--根据角色id查询该角色对应的api uri，查询的结果会缓存，所以当更新表sys_role_menu和sys_menu_api时，均需要清空缓存-->
+  <select id="getUriByRoleId" resultType="string">
+    select distinct ra.uri
+    from sys_menu_api ra
+    inner join sys_role_menu rr on ra.menu_id = rr.menu_id
+    inner join sys_role role on rr.role_id = role.id
+    where role.del_flag = 0
+    and role.enable = 1
+    and role.id = #{roleId,jdbcType=VARCHAR}
+  </select>
+</mapper>

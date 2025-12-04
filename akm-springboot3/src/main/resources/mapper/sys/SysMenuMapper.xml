@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akm.springboot3.web.sys.mapper.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.akm.springboot3.web.sys.entity.SysMenu">
+    <!--@mbg.generated-->
+    <!--@Table sys_menu-->
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+    <result column="type" jdbcType="TINYINT" property="type"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="uri" jdbcType="VARCHAR" property="uri"/>
+    <result column="code" jdbcType="VARCHAR" property="code"/>
+    <result column="icon" jdbcType="VARCHAR" property="icon"/>
+    <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    <result column="orders" jdbcType="INTEGER" property="orders"/>
+    <result column="client_type" jdbcType="TINYINT" property="clientType"/>
+    <result column="enable" jdbcType="TINYINT" property="enable"/>
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+    <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId"/>
+    <result column="del_flag" jdbcType="TINYINT" property="delFlag"/>
+    <result column="dynamic_route" jdbcType="TINYINT" property="dynamicRoute"/>
+    <collection ofType="java.lang.String" property="uriList">
+      <constructor>
+        <arg column="apiUri"/>
+      </constructor>
+    </collection>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id,
+    parent_id,
+    type,
+    name,
+    uri,
+    code,
+    icon,
+    remark,
+    orders,
+    client_type,
+    enable,
+    create_user_id,
+    update_user_id,
+    del_flag,
+    dynamic_route
+  </sql>
+
+  <insert id="insertSelective" parameterType="com.akm.springboot3.web.sys.entity.SysMenu">
+    <!--@mbg.generated-->
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="parentId != null and parentId != ''">
+        parent_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="uri != null and uri != ''">
+        uri,
+      </if>
+      <if test="code != null and code != ''">
+        code,
+      </if>
+      <if test="icon != null and icon != ''">
+        icon,
+      </if>
+      <if test="remark != null and remark != ''">
+        remark,
+      </if>
+      <if test="orders != null">
+        orders,
+      </if>
+      <if test="clientType != null">
+        client_type,
+      </if>
+      <if test="enable != null">
+        enable,
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        update_user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="dynamicRoute != null">
+        dynamic_route,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null and parentId != ''">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null and uri != ''">
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null and code != ''">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null and icon != ''">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="clientType != null">
+        #{clientType,jdbcType=SMALLINT},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=SMALLINT},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="dynamicRoute != null">
+        #{dynamicRoute,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.akm.springboot3.web.sys.entity.SysMenu">
+    <!--@mbg.generated-->
+    update sys_menu
+    <set>
+      <if test="parentId != null and parentId != ''">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null and uri != ''">
+        uri = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null and code != ''">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null and icon != ''">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        orders = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="clientType != null">
+        client_type = #{clientType,jdbcType=SMALLINT},
+      </if>
+      <if test="enable != null">
+        enable = #{enable,jdbcType=SMALLINT},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="dynamicRoute != null">
+        dynamic_route = #{dynamicRoute,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findByAll" resultMap="BaseResultMap">
+    select menu.id,
+    menu.parent_id,
+    menu.type,
+    menu.name,
+    menu.uri,
+    menu.code,
+    menu.icon,
+    menu.remark,
+    menu.orders,
+    menu.client_type,
+    menu.enable,
+    menu.create_user_id,
+    menu.update_user_id,
+    x.uri apiUri
+    from sys_menu menu
+    left join sys_menu_api x
+    on menu.id = x.menu_id
+    <where>
+      <if test="clientType != null">
+        and menu.client_type = #{clientType,jdbcType=TINYINT}
+      </if>
+      <if test="enable != null">
+        and menu.enable = #{enable,jdbcType=TINYINT}
+      </if>
+      <if test="code != null">
+        and menu.code = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="delFlag != null">
+        and del_flag=#{delFlag,jdbcType=TINYINT}
+      </if>
+      order by client_type desc, orders desc
+    </where>
+  </select>
+
+  <update id="batchDel">
+    update sys_menu
+    set del_flag= 1,
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where id in
+    <foreach close=")" collection="idList" item="item" open="(" separator=", ">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+
+  <select id="findMenu" resultType="com.akm.springboot3.web.sys.domain.SysMenuInfo">
+    SELECT DISTINCT menu.id,
+    menu.parent_id parentId,
+    menu.type,
+    menu.name,
+    menu.uri,
+    menu.code,
+    menu.icon,
+    menu.orders
+    FROM sys_user_role ur
+    INNER JOIN sys_role role ON ur.role_id = role.id and role.del_flag = 0 and role.enable = 1
+    INNER JOIN sys_role_menu rr ON role.id = rr.role_id
+    INNER JOIN sys_menu menu ON rr.menu_id = menu.id and menu.del_flag = 0 and
+    menu.enable = 1
+    and client_type = #{clientType,jdbcType=TINYINT}
+    WHERE ur.user_id = #{userId,jdbcType=VARCHAR}
+    order by menu.orders desc
+  </select>
+</mapper>

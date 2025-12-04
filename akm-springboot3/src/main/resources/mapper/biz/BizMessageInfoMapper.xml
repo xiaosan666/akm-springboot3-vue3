@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akm.springboot3.web.biz.mapper.BizMessageInfoMapper">
+  <resultMap id="BaseResultMap" type="com.akm.springboot3.web.biz.entity.BizMessageInfo">
+    <!--@mbg.generated-->
+    <!--@Table biz_message_info-->
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="title" jdbcType="VARCHAR" property="title"/>
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="message_type" jdbcType="SMALLINT" property="messageType"/>
+    <result column="message_priority" jdbcType="SMALLINT" property="messagePriority"/>
+    <result column="message_status" jdbcType="SMALLINT" property="messageStatus"/>
+    <result column="range_type" jdbcType="SMALLINT" property="rangeType"/>
+    <result column="range_str" jdbcType="VARCHAR" property="rangeStr"/>
+    <result column="biz_record_type" jdbcType="VARCHAR" property="bizRecordType"/>
+    <result column="biz_record_id" jdbcType="VARCHAR" property="bizRecordId"/>
+    <result column="biz_url" jdbcType="VARCHAR" property="bizUrl"/>
+    <result column="biz_remark" jdbcType="VARCHAR" property="bizRemark"/>
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="del_flag" jdbcType="SMALLINT" property="delFlag"/>
+    <result column="del_time" jdbcType="TIMESTAMP" property="delTime"/>
+    <result column="is_read" jdbcType="TIMESTAMP" property="isRead"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, title, content, message_type, message_priority, message_status, range_type, range_str,
+    biz_record_type, biz_record_id, biz_url, biz_remark, create_user_id, create_time,
+    update_user_id, update_time, del_flag, del_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from biz_message_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertSelective" parameterType="com.akm.springboot3.web.biz.entity.BizMessageInfo">
+    <!--@mbg.generated-->
+    insert into biz_message_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="title != null and title != ''">
+        title,
+      </if>
+      <if test="content != null and content != ''">
+        content,
+      </if>
+      <if test="messageType != null">
+        message_type,
+      </if>
+      <if test="messagePriority != null">
+        message_priority,
+      </if>
+      <if test="messageStatus != null">
+        message_status,
+      </if>
+      <if test="rangeType != null">
+        range_type,
+      </if>
+      <if test="rangeStr != null and rangeStr != ''">
+        range_str,
+      </if>
+      <if test="bizRecordType != null and bizRecordType != ''">
+        biz_record_type,
+      </if>
+      <if test="bizRecordId != null and bizRecordId != ''">
+        biz_record_id,
+      </if>
+      <if test="bizUrl != null and bizUrl != ''">
+        biz_url,
+      </if>
+      <if test="bizRemark != null and bizRemark != ''">
+        biz_remark,
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        update_user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="delTime != null">
+        del_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null and title != ''">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null and content != ''">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="messageType != null">
+        #{messageType,jdbcType=SMALLINT},
+      </if>
+      <if test="messagePriority != null">
+        #{messagePriority,jdbcType=SMALLINT},
+      </if>
+      <if test="messageStatus != null">
+        #{messageStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="rangeType != null">
+        #{rangeType,jdbcType=SMALLINT},
+      </if>
+      <if test="bizRecordType != null and bizRecordType != ''">
+        #{bizRecordType,jdbcType=VARCHAR},
+      </if>
+      <if test="rangeStr != null and rangeStr != ''">
+        #{rangeStr,jdbcType=VARCHAR},
+      </if>
+      <if test="bizRecordId != null and bizRecordId != ''">
+        #{bizRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizUrl != null and bizUrl != ''">
+        #{bizUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bizRemark != null and bizRemark != ''">
+        #{bizRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="delTime != null">
+        #{delTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.akm.springboot3.web.biz.entity.BizMessageInfo">
+    <!--@mbg.generated-->
+    update biz_message_info
+    <set>
+      <if test="title != null and title != ''">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null and content != ''">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="messageType != null">
+        message_type = #{messageType,jdbcType=SMALLINT},
+      </if>
+      <if test="messagePriority != null">
+        message_priority = #{messagePriority,jdbcType=SMALLINT},
+      </if>
+      <if test="messageStatus != null">
+        message_status = #{messageStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="rangeType != null">
+        range_type = #{rangeType,jdbcType=SMALLINT},
+      </if>
+      <if test="bizRecordType != null and bizRecordType != ''">
+        biz_record_type = #{bizRecordType,jdbcType=VARCHAR},
+      </if>
+      <if test="bizRecordId != null and bizRecordId != ''">
+        biz_record_id = #{bizRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizUrl != null and bizUrl != ''">
+        biz_url = #{bizUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bizRemark != null and bizRemark != ''">
+        biz_remark = #{bizRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="delTime != null">
+        del_time = #{delTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="findByAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from biz_message_info
+    <where>
+      <if test="id != null and id != ''">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+      <if test="title != null and title != ''">
+        and title like CONCAT('%', #{title,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="content != null and content != ''">
+        and content like CONCAT('%', #{content,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="messageType != null">
+        and message_type=#{messageType,jdbcType=SMALLINT}
+      </if>
+      <if test="messagePriority != null">
+        and message_priority=#{messagePriority,jdbcType=SMALLINT}
+      </if>
+      <if test="messageStatus != null">
+        and message_status=#{messageStatus,jdbcType=SMALLINT}
+      </if>
+      <if test="rangeType != null">
+        and range_type=#{rangeType,jdbcType=SMALLINT}
+      </if>
+      <if test="bizRecordType != null and bizRecordType != ''">
+        and biz_record_type=#{bizRecordType,jdbcType=VARCHAR}
+      </if>
+      <if test="bizRecordId != null and bizRecordId != ''">
+        and biz_record_id=#{bizRecordId,jdbcType=VARCHAR}
+      </if>
+      <if test="bizUrl != null and bizUrl != ''">
+        and biz_url=#{bizUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="bizRemark != null and bizRemark != ''">
+        and biz_remark=#{bizRemark,jdbcType=VARCHAR}
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        and create_user_id=#{createUserId,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        and update_user_id=#{updateUserId,jdbcType=VARCHAR}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="delFlag != null">
+        and del_flag=#{delFlag,jdbcType=SMALLINT}
+      </if>
+      <if test="delTime != null">
+        and del_time=#{delTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+
+  <update id="batchDel">
+    update biz_message_info
+    set del_flag= 1,
+    del_time = now()
+    where id in
+    <foreach close=")" collection="idList" item="item" open="(" separator=", ">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+
+  <!--查询我的未读消息总数-->
+  <select id="myUnReadMessageCount">
+    SELECT count(1)
+    FROM biz_message_info t1
+    INNER JOIN (
+    SELECT id message_id FROM biz_message_info WHERE range_type = 1
+    union
+    SELECT message_id FROM biz_message_user WHERE user_id = #{userId,jdbcType=VARCHAR}
+    union
+    SELECT message_id FROM biz_message_org WHERE org_id = #{orgId,jdbcType=VARCHAR}
+    ) tmp on t1.id = tmp.message_id
+    left join biz_message_user_read t2 on t1.id = t2.message_id
+    where del_flag = 0 and message_status = 1 and message_type = 1 and t2.id is null
+  </select>
+
+  <!--查询我的消息-->
+  <select id="myMessage" resultMap="BaseResultMap">
+    SELECT t1.*, (select 1 from biz_message_user_read where message_id = t1.id and user_id = #{userId,jdbcType=VARCHAR})
+    is_read
+    FROM biz_message_info t1
+    INNER JOIN (
+    SELECT id message_id FROM biz_message_info WHERE range_type = 1
+    union
+    SELECT message_id FROM biz_message_user WHERE user_id = #{userId,jdbcType=VARCHAR}
+    union
+    SELECT message_id FROM biz_message_org WHERE org_id = #{orgId,jdbcType=VARCHAR}
+    ) tmp on t1.id = tmp.message_id
+    <if test="isRead != null">
+      left join biz_message_user_read t2 on t1.id = t2.message_id
+    </if>
+    where del_flag = 0 and message_status = 1
+    <if test="searchContent != null and searchContent != ''">
+      and (
+      title like CONCAT('%', #{searchContent,jdbcType=VARCHAR}, '%')
+      or content like CONCAT('%', #{searchContent,jdbcType=VARCHAR}, '%')
+      )
+    </if>
+    <if test="messageType != null">
+      and message_type=#{messageType,jdbcType=SMALLINT}
+    </if>
+    <if test="messagePriority != null">
+      and message_priority=#{messagePriority,jdbcType=SMALLINT}
+    </if>
+    <if test="isRead != null and isRead == 0">
+      and t2.id is null
+    </if>
+    <if test="isRead != null and isRead == 1">
+      and t2.id is not null
+    </if>
+    order by t1.create_time desc
+  </select>
+</mapper>

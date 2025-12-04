@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akm.springboot3.web.sys.mapper.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.akm.springboot3.web.sys.entity.SysRole">
+    <!--@mbg.generated-->
+    <!--@Table sys_role-->
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="code" jdbcType="VARCHAR" property="code"/>
+    <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    <result column="orders" jdbcType="INTEGER" property="orders"/>
+    <result column="enable" jdbcType="SMALLINT" property="enable"/>
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="del_flag" jdbcType="SMALLINT" property="delFlag"/>
+    <result column="data_scope_org" jdbcType="VARCHAR" property="dataScopeOrg"/>
+    <result column="tenantName" jdbcType="VARCHAR" property="tenantName"/>
+    <result column="menuIds" jdbcType="VARCHAR" property="menuIds"/>
+    <result column="data_scope_org_name" jdbcType="INTEGER" property="dataScopeOrgName"/>
+    <result column="orgIds" jdbcType="INTEGER" property="orgIds"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, tenant_id, name, code, remark, orders, enable, create_user_id, create_time,
+    update_user_id, update_time, del_flag, data_scope_org
+  </sql>
+  <insert id="insertSelective" parameterType="com.akm.springboot3.web.sys.entity.SysRole">
+    <!--@mbg.generated-->
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="tenantId != null and tenantId != ''">
+        tenant_id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="code != null and code != ''">
+        code,
+      </if>
+      <if test="remark != null and remark != ''">
+        remark,
+      </if>
+      <if test="orders != null">
+        orders,
+      </if>
+      <if test="enable != null">
+        enable,
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        update_user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="dataScopeOrg != null and dataScopeOrg != ''">
+        data_scope_org,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null and tenantId != ''">
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null and code != ''">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=SMALLINT},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="dataScopeOrg != null and dataScopeOrg != ''">
+        #{dataScopeOrg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.akm.springboot3.web.sys.entity.SysRole">
+    <!--@mbg.generated-->
+    update sys_role
+    <set>
+      <if test="tenantId != null and tenantId != ''">
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null and code != ''">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        orders = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        enable = #{enable,jdbcType=SMALLINT},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="dataScopeOrg != null and dataScopeOrg != ''">
+        data_scope_org = #{dataScopeOrg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findByAll" resultMap="BaseResultMap">
+    select role.id,
+    role.name,
+    role.code,
+    role.remark,
+    role.orders,
+    role.enable,
+    role.create_user_id,
+    role.update_user_id,
+    role.data_scope_org,
+    (
+    select
+    <if test="_databaseId == 'mysql'">
+      GROUP_CONCAT(org_id)
+    </if>
+    <if test="_databaseId == 'pg'">
+      STRING_AGG(org_id, ',')
+    </if>
+    <if test="_databaseId == 'dm'">
+      WM_CONCAT(org_id)
+    </if>
+    from sys_role_org where role_id = role.id
+    ) orgIds,
+    (select label
+    from sys_dict
+    where type = 'data_scope_org'
+    and value = role.data_scope_org) data_scope_org_name,
+    role.tenant_id,
+    tenant.name tenantName,
+    (
+    select
+    <if test="_databaseId == 'mysql'">
+      GROUP_CONCAT(menu_id)
+    </if>
+    <if test="_databaseId == 'pg'">
+      STRING_AGG(menu_id, ',')
+    </if>
+    <if test="_databaseId == 'dm'">
+      WM_CONCAT(menu_id)
+    </if>
+    from sys_role_menu where role_id = role.id
+    ) menuIds
+    from sys_role role
+    inner join sys_tenant tenant on role.tenant_id = tenant.id and tenant.del_flag = 0
+    <where>
+      <if test="tenantId != null and tenantId != ''">
+        and role.tenant_id = #{tenantId,jdbcType=VARCHAR}
+      </if>
+      <if test="tenantName != null and tenantName != ''">
+        and tenant.name like concat('%', #{tenantName,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="name != null and name != ''">
+        and role.name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="enable != null">
+        and role.enable = #{enable,jdbcType=TINYINT}
+      </if>
+      <if test="delFlag != null">
+        and role.del_flag=#{delFlag,jdbcType=TINYINT}
+      </if>
+    </where>
+    order by role.orders desc
+  </select>
+
+  <update id="batchDel">
+    update sys_role
+    set del_flag= 1,
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where id in
+    <foreach close=")" collection="idList" item="item" open="(" separator=", ">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    <if test="tenantId != null and tenantId != ''">
+      and tenant_id = #{tenantId,jdbcType=VARCHAR}
+    </if>
+  </update>
+
+  <select id="findRoleByUser" resultType="com.akm.springboot3.web.sys.domain.SysRoleBaseInfo">
+    select role.id, role.name, role.code, role.data_scope_org dataScopeOrg
+    from sys_role role
+    left join sys_user_role x on role.id = x.role_id
+    where role.del_flag = 0
+    and role.enable = 1
+    <if test="userId != null">
+      and x.user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    <!--        用户角色可以属于多个租户，无需该查询条件 -->
+    <!--        <if test="tenantId != null and tenantId != ''">-->
+    <!--            and tenant_id = #{tenantId,jdbcType=VARCHAR}-->
+    <!--        </if>-->
+    order by orders desc
+  </select>
+
+  <update id="updateDataScorpOrgById">
+    update sys_role
+    set data_scope_org=#{dataScopeOrg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

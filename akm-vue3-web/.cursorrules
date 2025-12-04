@@ -1,0 +1,106 @@
+{
+  "rules": [
+    {
+      "name": "Vue3 + Element Plus 项目规范",
+      "rules": [
+        "使用 Vue3 选项式 API (Options API) 风格编写组件",
+        "使用 Element Plus 组件库，图标使用 el-icon 组件， 如<el-icon><Minus /></el-icon>",
+        "使用 Pinia 进行状态管理，采用标准语法：defineStore、state、getters、actions",
+        "模板中使用 v-slot 语法，不使用简写 #",
+        "使用 SCSS 编写样式，使用 scoped 作用域",
+        "组件命名使用 PascalCase，文件名使用 kebab-case"
+      ]
+    },
+    {
+      "name": "代码组织规范",
+      "description": "项目结构和文件组织",
+      "rules": [
+        "stores 目录使用 Pinia 标准语法，每个 store 导出 useXxxStore",
+        "components 目录存放全局可复用组件",
+        "views 目录存放页面级组件",
+        "providers 目录存放工具类和 API",
+        "router 目录存放路由配置",
+        "assets 目录存放静态资源"
+      ]
+    },
+    {
+      "name": "Pinia Store 规范",
+      "description": "状态管理的最佳实践",
+      "rules": [
+        "使用 defineStore 定义 store，导出 useXxxStore",
+        "state 使用函数返回对象：state: () => ({ ... })",
+        "getters 使用对象定义，通过 state 参数访问状态",
+        "actions 使用对象定义，通过 this 访问和修改状态",
+        "不使用 mutations，直接在 actions 中修改状态",
+        "异步操作使用 async/await 语法"
+      ]
+    },
+    {
+      "name": "组件编写规范",
+      "description": "Vue 组件的编写标准",
+      "rules": [
+        "使用 export default 导出组件对象",
+        "组件名使用 PascalCase，如 TheLoginForm",
+        "data 返回响应式数据对象",
+        "生命周期钩子使用 created、mounted 等"
+      ]
+    },
+    {
+      "name": "模板语法规范",
+      "description": "Vue 模板的编写标准",
+      "rules": [
+        "使用 v-slot 而不是简写 #",
+        "Element Plus 图标使用 i 标签和 el-icon-* 类名",
+        "表单验证使用 :rules 和 ref",
+        "事件处理使用 @click、@change 等",
+        "条件渲染使用 v-if、v-show",
+        "列表渲染使用 v-for 配合 :key"
+      ]
+    },
+    {
+      "name": "样式编写规范",
+      "description": "CSS/SCSS 的编写标准",
+      "rules": [
+        "使用 SCSS 语法，支持嵌套和变量",
+        "组件样式使用 scoped 作用域",
+        "全局样式不使用 scoped",
+        "使用 Element Plus 的 CSS 变量系统",
+        "类名使用 kebab-case",
+        "避免使用 !important，优先使用选择器优先级"
+      ]
+    },
+    {
+      "name": "API 和工具类规范",
+      "description": "后端接口和工具函数的使用",
+      "rules": [
+        "工具函数使用 providers/utils 中的方法",
+        "本地存储使用 providers/localStorage",
+        "HTTP 请求使用 providers/http",
+        "helper 与框架业务相关的工具方法 providers/helper",
+        "验证规则使用 providers/validate",
+        "错误处理使用 try/catch 和 this.$helper.errorMessage"
+      ]
+    },
+    {
+      "name": "路由和导航规范",
+      "description": "路由配置和导航逻辑",
+      "rules": [
+        "路由配置在 router/index.js 中定义",
+        "路由守卫在 router/interceptor.js 中实现",
+        "使用 router.push 进行编程式导航",
+        "路由参数使用 query 或 params",
+        "路由元信息使用 meta 字段"
+      ]
+    },
+    {
+      "name": "错误处理和调试规范",
+      "description": "错误处理和调试的最佳实践",
+      "rules": [
+        "使用 try/catch 处理异步操作错误",
+        "使用 this.$helper.errorMessage 显示错误信息",
+        "表单验证错误使用 Element Plus 的内置验证",
+        "网络请求错误使用统一的错误处理",
+        "开发环境使用 console.log 进行调试"
+      ]
+    }
+}

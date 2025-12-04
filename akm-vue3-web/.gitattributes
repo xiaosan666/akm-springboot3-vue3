@@ -1,0 +1,103 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+# ========== 通用设置 ==========
+# 自动检测文本文件
+* text=auto
+/mvnw text eol=lf
+*.cmd text eol=crlf
+
+# ========== 前端相关 (Vue3) ==========
+*.vue text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.jsx text eol=lf
+*.tsx text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.sass text eol=lf
+*.less text eol=lf
+*.styl text eol=lf
+/src/assets/** binary
+
+# 前端配置文件
+*.env text eol=lf
+*.env.* text eol=lf
+vite.config.* text eol=lf
+vue.config.* text eol=lf
+*.browserslistrc text eol=lf
+*.eslintrc.* text eol=lf
+*.prettierrc.* text eol=lf
+babel.config.* text eol=lf
+postcss.config.* text eol=lf
+tailwind.config.* text eol=lf
+
+# ========== 后端相关 (SpringBoot3) ==========
+*.java text eol=lf
+*.kt text eol=lf
+*.groovy text eol=lf
+
+# 配置文件
+*.yml text eol=lf
+*.yaml text eol=lf
+*.properties text eol=lf
+
+# 构建文件
+pom.xml text eol=lf
+build.gradle text eol=lf
+build.gradle.kts text eol=lf
+gradle.properties text eol=lf
+settings.gradle text eol=lf
+settings.gradle.kts text eol=lf
+
+# ========== 文档和配置 ==========
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.xml text eol=lf
+*.html text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+*.conf text eol=lf
+
+# Git 相关
+.gitattributes text eol=lf
+.gitignore text eol=lf
+.editorconfig text eol=lf
+
+# ========== 脚本文件 ==========
+*.sh text eol=lf
+*.bash text eol=lf
+*.zsh text eol=lf
+*.ps1 text eol=lf
+*.bat text eol=lf
+
+# ========== Docker 相关 ==========
+Dockerfile text eol=lf
+*.dockerfile text eol=lf
+.dockerignore text eol=lf
+
+# 确保 Git 不转换这些二进制文件
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.bmp binary
+*.ico binary
+*.svg binary
+*.pdf binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.bz2 binary
+*.xz binary
+*.7z binary
+*.rar binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.class binary
+*.jar binary
+*.war binary
+*.ear binary

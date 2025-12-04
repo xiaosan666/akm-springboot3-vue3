@@ -1,0 +1,252 @@
+# AKM Spring Boot 3 项目开发规范
+
+## 项目概述
+这是一个基于 Spring Boot 3 的企业级后端管理系统，采用多租户架构，支持多种数据库。
+
+## 技术栈
+- **框架**: Spring Boot 3.5.7 (Spring 6.2.12)
+- **Java 版本**: Java 17 (不要使用 Java 8 特性，应使用 Java 17 特性)
+- **Web**: Spring MVC + Jakarta EE 9+
+- **持久层**: MyBatis 3.0.5 + HikariCP
+- **数据库**: MySQL / PostgreSQL / DaMeng（达梦）
+- **缓存**: Redis (Lettuce) + 本地缓存
+- **文件存储**: Minio
+- **API 文档**: SpringDoc OpenAPI, 不使用Knife4j
+- **工具库**: Hutool, Lombok, EasyExcel
+- **安全**: Jasypt 配置加密, 自定义权限控制
+- **其他**: Magic API
+
+## 代码规范
+
+### 1. 响应规范
+- 始终使用中文回复用户
+
+### 2. 分层架构
+```
+com.akm.springboot3/
+├── core/                  # 核心模块（配置、工具类、通用组件）
+│   ├── annotation/       # 自定义注解
+│   ├── config/          # 配置类
+│   ├── constant/        # 常量定义
+│   ├── domain/          # 通用领域对象
+│   ├── exception/       # 全局异常处理
+│   └── utils/           # 工具类
+├── web/                  # Web 层
+│   ├── biz/             # 业务模块
+│   │   ├── api/         # 控制器（API 接口）
+│   │   ├── domain/      # DTO/VO 对象
+│   │   ├── entity/      # 实体类（对应数据库表）
+│   │   ├── mapper/      # MyBatis Mapper 接口
+│   │   └── service/     # 业务逻辑层
+│   └── sys/             # 系统模块（用户、角色、权限等）
+└── file/                 # 文件处理模块
+```
+
+### 3. 命名规范
+
+#### API 路径命名
+- 查询接口: `/xxx/view/{method}`
+- 操作接口: `/xxx/op/{method}` (新增、编辑、删除)
+- 开放接口: `/xxx/open/{method}` (不需要权限)
+- 公共接口: `/xxx/public/{method}` (仅验证登录)
+
+#### 类命名
+- Controller: `XxxApi` (不使用 Controller 后缀，使用 Api)
+- Service: `XxxService` + `XxxServiceImpl`
+- Mapper: `XxxMapper`
+- Entity: `BizXxx` / `SysXxx` (带业务前缀)
+- DTO/VO: 具体业务名称，如 `MessageQuery`, `AppCheckUpdate`
+
+#### 缓存 Key 规范
+- 统一在 `RedisKeys` 常量类中定义
+- 使用 `CacheUtils.prefixKey()` 添加项目前缀
+- 避免硬编码缓存 key
+
+### 4. 注解使用
+
+#### 自定义注解
+- `@ApiFreqLimit`: 接口频率限制
+- `@CheckCsrfToken`: CSRF Token 校验
+- `@IgnoreResultHandler`: 忽略统一响应封装
+- `@IgnoreSysLog`: 忽略系统日志记录
+
+#### 文档注解
+- 使用 Swagger 注解: `@Tag`, `@Operation`, `@Parameter`
+- 使用旧版兼容: `@ApiModel`, `@ApiModelProperty`
+
+### 5. 配置管理
+
+#### 敏感信息加密
+- 数据库密码、Redis 密码等使用 Jasypt 加密
+- 格式: `ENC(加密后的字符串)`
+- 配置 key: `jasypt.encryptor.password`
+
+#### 配置文件层级
+- `application.yaml`: 主配置
+- `application-dev.yaml`: 开发环境
+- 使用 `@ConfigurationProperties` 绑定配置: `akm.*`
+
+### 6. 数据库规范
+
+#### MyBatis
+- Mapper XML 文件放在 `resources/mapper/` 目录
+- 使用 `#{param}` 防止 SQL 注入
+- 分页使用 PageHelper: `PageHelper.startPage(page, size)`
+- 打印 SQL: `akm.mybatis.print-sql: true`
+
+#### 实体类
+- 使用 Lombok: `@Getter`, `@Setter`, `@ToString`
+- 日期类型使用 `java.util.Date` (不使用 java.time)
+- 使用 `@JsonFormat` 格式化日期
+
+### 7. 缓存策略
+
+#### 缓存类型配置
+```yaml
+akm:
+  cacheType: redis  # 生产环境使用 redis，开发可用 local
+```
+
+#### 缓存工具类
+- `CacheUtils`: 通用缓存操作 (Object 类型)
+- `StringCacheUtils`: 字符串缓存操作
+- 支持互斥锁防止缓存击穿: `CacheUtils.cacheAndGet()`
+
+### 8. 异常处理
+- 业务异常: `throw new BusinessException(CodeMsg.XXX)`
+- 统一异常处理: `GlobalExceptionHandler`
+- 断言工具: `AssertUtils.notNull()`, `AssertUtils.isTrue()`
+
+### 9. 安全规范
+
+#### 参数校验
+- 敏感词过滤: 配置 `akm.sensitiveWord`
+- HTML 转义: 自动处理（可配置排除路径）
+- 签名校验: 配置 `akm.enabledSign: true`
+- 加解密: 配置 `akm.enabledEncrypt: true`
+
+#### 权限控制
+- 配置 `akm.enabledAuth: true`
+- 开放接口: 路径包含 `/open/`
+- 公共接口: 路径包含 `/public/`
+
+### 10. 日志规范
+- 使用 SLF4J: `Logger log = LoggerFactory.getLogger(XXX.class)`
+- 日志级别: ERROR > WARN > INFO > DEBUG
+- 日志文件: `logs/spring.log`
+
+## Spring Boot 3 注意事项
+
+### 1. Jakarta EE 替代 JavaEE
+- ✅ 使用 `jakarta.servlet.*`
+- ❌ 不使用 `jakarta.servlet.*`
+
+### 2. 配置前缀变化
+- ✅ `spring.data.redis.*`
+- ❌ `spring.redis.*`
+
+### 3. Java 17 特性
+- ✅ 使用 Records、sealed classes、switch 表达式
+- ✅ 使用 Text Blocks (多行字符串)
+- ❌ 不使用 Java 8 的 Date API 说明（项目使用 Date）
+
+### 4. 依赖注入
+- 推荐使用构造器注入
+- 避免使用 `@Autowired` 字段注入
+
+## 开发实践
+
+### 1. 代码简洁
+- 能用 Spring Boot 自动配置的，不手动配置
+- 删除不必要的 Jackson 配置（Spring Boot 3 有合理默认值）
+- 使用 Lombok 减少样板代码
+
+### 2. 性能优化
+- 使用 Redis 缓存热点数据
+- 使用 HikariCP 连接池（默认）
+- 使用异步任务: `@Async` (AsyncConfig 配置)
+
+### 3. 测试规范
+- 单元测试放在 `src/test/java`
+- 使用 `@SpringBootTest` 集成测试
+- Mock 外部依赖
+
+### 4. Git 规范
+- 提交信息格式: `[类型] 简短描述`
+- 类型: feat/fix/docs/refactor/test/chore
+
+## 工具类使用
+
+### Hutool
+- 字符串: `StrUtil`
+- 集合: `CollUtil`
+- 日期: `DateUtil`
+- JSON: `JSONUtil`
+- 加密: `SecureUtil`
+
+### 自定义工具类
+- `CacheUtils`: 缓存操作
+- `StringUtils`: 字符串增强
+- `EncryptUtils`: 加解密
+- `IpUtils`: IP 处理
+- `SnowflakeUtils`: ID 生成
+- `SpringContextHolder`: 获取 Spring Bean
+
+## 常见问题
+
+### 2. Maven 依赖问题
+- 先执行 `java21` 切换 JDK 版本
+- 再执行 `mvn clean install`
+
+### 3. 启动失败排查
+1. 查看日志文件: `logs/spring.log`
+2. 检查数据库连接
+3. 检查 Redis 连接
+4. 检查端口占用: 33000
+
+## API 开发模板
+
+```java
+@Tag(name = "示例管理")
+@RestController
+@RequestMapping("/biz/example")
+public class ExampleApi {
+
+    private final ExampleService exampleService;
+
+    // 构造器注入
+    public ExampleApi(ExampleService exampleService) {
+        this.exampleService = exampleService;
+    }
+
+    @Operation(summary = "查询列表")
+    @GetMapping("/view/list")
+    public PageResult<Example> list(ExampleQuery query) {
+        return exampleService.queryList(query);
+    }
+
+    @Operation(summary = "新增")
+    @PostMapping("/op/add")
+    public void add(@RequestBody Example example) {
+        exampleService.add(example);
+    }
+}
+```
+
+## 配置优先级
+1. 命令行参数
+2. application-{profile}.yaml
+3. application.yaml
+4. 默认配置
+
+## 部署说明
+- 构建: `mvn clean package -DskipTests`
+- 运行: `java -jar target/akm-springboot3-0.0.1-SNAPSHOT.jar`
+- 配置文件: `--spring.profiles.active=prod`
+- 日志目录: `logs/`
+
+## 相关链接
+- Swagger UI: http://localhost:33000/doc.html
+- Druid 监控: http://localhost:33000/druid/index.html
+- Magic API: http://localhost:33000/magic/web/index.html
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akm.springboot3.web.biz.mapper.BizDistrictMapper">
+  <resultMap id="BaseResultMap" type="com.akm.springboot3.web.biz.entity.BizDistrict">
+    <!--@mbg.generated-->
+    <!--@Table biz_district-->
+    <id column="ad_code" jdbcType="VARCHAR" property="adCode"/>
+    <result column="parent_ad_code" jdbcType="VARCHAR" property="parentAdCode"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="center" jdbcType="VARCHAR" property="center"/>
+    <result column="level" jdbcType="VARCHAR" property="level"/>
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ad_code, parent_ad_code, name, center, level, create_user_id, create_time
+  </sql>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into biz_district
+    (ad_code, parent_ad_code, name, center, level, create_user_id, create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.adCode,jdbcType=VARCHAR}, #{item.parentAdCode,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR},
+      #{item.center,jdbcType=VARCHAR}, #{item.level,jdbcType=VARCHAR},
+      #{item.createUserId,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <delete id="clearTable" parameterType="java.lang.String">
+    delete
+    from biz_district
+  </delete>
+
+  <select id="findDistrict" resultType="com.akm.springboot3.web.biz.domain.District">
+    select ad_code adCode, parent_ad_code parentAdCode, name
+    from biz_district
+    <where>
+      <if test="adCode != null and adCode != ''">
+        and ad_code = #{adCode,jdbcType=VARCHAR}
+      </if>
+      <if test="parentAdCode != null and parentAdCode != ''">
+        and parent_ad_code = #{parentAdCode,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null and name != ''">
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

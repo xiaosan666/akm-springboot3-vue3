@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active: native
+  application:
+    name: akm-springboot3-config
+  cloud:
+    config:
+      server:
+        native:
+          # 为了开发方便，建议使用 file: 协议，这样修改文件不需要编译
+          search-locations: file:./src/main/resources/configs
+
+server:
+  port: 33033
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,info
+
+logging:
+  level:
+    root: info
+  file:
+    path: ./logs

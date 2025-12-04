@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akm.springboot3.web.sys.mapper.SysLogLoginMapper">
+  <resultMap id="BaseResultMap" type="com.akm.springboot3.web.sys.entity.SysLogLogin">
+    <!--@mbg.generated-->
+    <id column="log_id" jdbcType="VARCHAR" property="logId"/>
+  </resultMap>
+  <insert id="insert" parameterType="com.akm.springboot3.web.sys.entity.SysLogLogin">
+    <!--@mbg.generated-->
+    insert into sys_log_login (log_id, create_time)
+    values (#{logId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+</mapper>

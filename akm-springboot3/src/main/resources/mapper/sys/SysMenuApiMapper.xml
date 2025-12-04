@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akm.springboot3.web.sys.mapper.SysMenuApiMapper">
+  <resultMap id="BaseResultMap" type="com.akm.springboot3.web.sys.entity.SysMenuApi">
+    <!--@mbg.generated-->
+    <!--@Table sys_menu_api-->
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="menu_id" jdbcType="VARCHAR" property="menuId"/>
+    <result column="uri" jdbcType="VARCHAR" property="uri"/>
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+    <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, menu_id, uri, create_user_id, update_user_id
+  </sql>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into sys_menu_api
+    (id, menu_id, uri, create_user_id, create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.menuId,jdbcType=VARCHAR}, #{item.uri,jdbcType=VARCHAR},
+      #{item.createUserId,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <delete id="deleteByMenuId" parameterType="java.lang.String">
+    delete
+    from sys_menu_api
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

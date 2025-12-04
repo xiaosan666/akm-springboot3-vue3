@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akm.springboot3.web.sys.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.akm.springboot3.web.sys.entity.SysUser">
+    <!--@mbg.generated-->
+    <!--@Table sys_user-->
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId"/>
+    <result column="password" jdbcType="VARCHAR" property="password"/>
+    <result column="salt" jdbcType="VARCHAR" property="salt"/>
+    <result column="username" jdbcType="VARCHAR" property="username"/>
+    <result column="realname" jdbcType="VARCHAR" property="realname"/>
+    <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+    <result column="enable" jdbcType="TINYINT" property="enable"/>
+    <result column="openid" jdbcType="VARCHAR" property="openid"/>
+    <result column="org_id" jdbcType="VARCHAR" property="orgId"/>
+    <result column="otp_secret" jdbcType="VARCHAR" property="otpSecret"/>
+    <result column="expired_time" jdbcType="TIMESTAMP" property="expiredTime"/>
+    <result column="update_password" jdbcType="TINYINT" property="updatePassword"/>
+    <result column="last_password_change_time" jdbcType="TIMESTAMP" property="lastPasswordChangeTime"/>
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+    <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId"/>
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag"/>
+    <result column="tenantCode" jdbcType="VARCHAR" property="tenantCode"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, tenant_id, password, salt, username, realname, avatar, enable, openid, org_id, otp_secret, expired_time,
+    update_password, last_password_change_time, create_user_id, update_user_id, del_flag
+  </sql>
+  <insert id="insertSelective" parameterType="com.akm.springboot3.web.sys.entity.SysUser">
+    <!--@mbg.generated-->
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="tenantId != null and tenantId != ''">
+        tenant_id,
+      </if>
+      <if test="password != null and password != ''">
+        password,
+      </if>
+      <if test="salt != null and salt != ''">
+        salt,
+      </if>
+      <if test="username != null and username != ''">
+        username,
+      </if>
+      <if test="realname != null and realname != ''">
+        realname,
+      </if>
+      <if test="avatar != null and avatar != ''">
+        avatar,
+      </if>
+      <if test="enable != null">
+        enable,
+      </if>
+      <if test="openid != null and openid != ''">
+        openid,
+      </if>
+      <if test="orgId != null and orgId != ''">
+        org_id,
+      </if>
+      <if test="expiredTime != null">
+        expired_time,
+      </if>
+      <if test="updatePassword != null">
+        update_password,
+      </if>
+      <if test="lastPasswordChangeTime != null">
+        last_password_change_time,
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id,
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        update_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null and tenantId != ''">
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password != ''">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null and salt != ''">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null and username != ''">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null and realname != ''">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null and avatar != ''">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=TINYINT},
+      </if>
+      <if test="openid != null and openid != ''">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null and orgId != ''">
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="expiredTime != null">
+        #{expiredTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatePassword != null">
+        #{updatePassword,jdbcType=TINYINT},
+      </if>
+      <if test="lastPasswordChangeTime != null">
+        #{lastPasswordChangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.akm.springboot3.web.sys.entity.SysUser">
+    <!--@mbg.generated-->
+    update sys_user
+    <set>
+      <if test="tenantId != null and tenantId != ''">
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password != ''">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null and salt != ''">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null and username != ''">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null and realname != ''">
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null and avatar != ''">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null">
+        enable = #{enable,jdbcType=TINYINT},
+      </if>
+      <if test="openid != null and openid != ''">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null and orgId != ''">
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="expiredTime != null">
+        expired_time = #{expiredTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatePassword != null">
+        update_password = #{updatePassword,jdbcType=TINYINT},
+      </if>
+      <if test="lastPasswordChangeTime != null">
+        last_password_change_time = #{lastPasswordChangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null and createUserId != ''">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null and updateUserId != ''">
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="DetailResultMap" type="com.akm.springboot3.web.sys.domain.SysUserDetail">
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId"/>
+    <result column="tenantName" jdbcType="VARCHAR" property="tenantName"/>
+    <result column="username" jdbcType="VARCHAR" property="username"/>
+    <result column="realname" jdbcType="VARCHAR" property="realname"/>
+    <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+    <result column="enable" jdbcType="TINYINT" property="enable"/>
+    <result column="openid" jdbcType="VARCHAR" property="openid"/>
+    <result column="org_id" jdbcType="VARCHAR" property="orgId"/>
+    <result column="expired_time" jdbcType="TIMESTAMP" property="expiredTime"/>
+    <result column="update_password" jdbcType="TINYINT" property="updatePassword"/>
+    <result column="last_password_change_time" jdbcType="TIMESTAMP" property="lastPasswordChangeTime"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="orgName" jdbcType="VARCHAR" property="orgName"/>
+    <result column="roleNames" jdbcType="VARCHAR" property="roleNames"/>
+  </resultMap>
+  <resultMap id="SysUserInfoMap" type="com.akm.springboot3.web.sys.domain.SysUserInfo">
+    <result column="username" jdbcType="VARCHAR" property="username"/>
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId"/>
+    <result column="realname" jdbcType="VARCHAR" property="realname"/>
+    <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+    <result column="openid" jdbcType="VARCHAR" property="openid"/>
+    <result column="org_id" jdbcType="VARCHAR" property="orgId"/>
+    <collection ofType="com.akm.springboot3.web.sys.domain.SysRoleInfo" property="roleList">
+      <id column="roleId" property="id"/>
+      <result column="roleName" property="name"/>
+      <result column="roleCode" property="code"/>
+      <result column="roleRemark" property="remark"/>
+    </collection>
+  </resultMap>
+
+  <update id="updatePassword">
+    update sys_user
+    set password = #{password,jdbcType=VARCHAR},
+    salt = #{salt,jdbcType=VARCHAR},
+    update_password = #{updatePassword,jdbcType=INTEGER},
+    last_password_change_time = #{lastPasswordChangeTime,jdbcType=TIMESTAMP},
+    update_user_id = #{updateUserId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+    <if test="tenantId != null and tenantId != ''">
+      and tenant_id = #{tenantId,jdbcType=VARCHAR}
+    </if>
+  </update>
+
+  <update id="deleteByPrimaryKey">
+    update sys_user
+    set del_flag= 1,
+    update_user_id = #{updateUserId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+    <if test="tenantId != null and tenantId != ''">
+      and tenant_id = #{tenantId,jdbcType=VARCHAR}
+    </if>
+  </update>
+
+  <!--auto generated by MybatisCodeHelper on 2020-07-15-->
+  <select id="selectOneById" resultMap="BaseResultMap">
+    select t1.id,
+    tenant_id,
+    password,
+    salt,
+    username,
+    realname,
+    avatar,
+    t1.enable,
+    expired_time,
+    otp_secret,
+    update_password,
+    last_password_change_time,
+    openid,
+    org_id,
+    t1.create_user_id,
+    t1.update_user_id,
+    t1.del_flag,
+    t2.code tenantCode
+    from sys_user t1
+    inner join sys_tenant t2 on t1.tenant_id = t2.id
+    where t1.id = #{id,jdbcType=VARCHAR}
+    and t1.del_flag = 0
+  </select>
+
+  <!--auto generated by MybatisCodeHelper on 2020-07-15-->
+  <select id="selectOneByUsername" resultMap="BaseResultMap">
+    select t1.id,
+    tenant_id,
+    password,
+    salt,
+    username,
+    realname,
+    avatar,
+    t1.enable,
+    expired_time,
+    update_password,
+    last_password_change_time,
+    openid,
+    org_id,
+    t1.create_user_id,
+    t1.update_user_id,
+    t1.del_flag,
+    t2.code tenantCode
+    from sys_user t1
+    inner join sys_tenant t2 on t1.tenant_id = t2.id
+    where username = #{username,jdbcType=VARCHAR}
+    <!--        登录接口不知道是哪个租户，所以不需要该查询条件 -->
+    <!--          <if test="tenantId != null and tenantId != ''">-->
+    <!--            and t1.tenant_id = #{tenantId,jdbcType=VARCHAR}-->
+    <!--        </if>-->
+    and t1.del_flag = 0
+  </select>
+
+  <select id="selectOneByAccount4a" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_user
+    where account4a = #{account4a,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByAll" resultMap="DetailResultMap">
+    select
+    t1.id,
+    t1.username,
+    t1.realname,
+    t1.avatar,
+    t1.enable,
+    t1.openid,
+    t1.org_id,
+    t1.expired_time,
+    t1.update_password,
+    t1.last_password_change_time,
+    t1.create_time,
+    t1.tenant_id,
+    <if test="_databaseId == 'mysql'">
+      GROUP_CONCAT(t4.name) roleNames,
+    </if>
+    <if test="_databaseId == 'pg'">
+      STRING_AGG(t4.name, ',') roleNames,
+    </if>
+    <if test="_databaseId == 'dm'">
+      WM_CONCAT(t4.name) roleNames,
+    </if>
+    t2.name orgName,
+    tenant.name tenantName
+    from sys_user t1
+    inner join sys_tenant tenant on t1.tenant_id = tenant.id and tenant.del_flag = 0
+    left join sys_org t2 on t1.org_id = t2.id
+    left join sys_user_role t3 on t1.id = t3.user_id
+    left join sys_role t4 on t3.role_id = t4.id
+    where t1.del_flag = 0
+    <if test="id != null">
+      and t1.id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="tenantId != null and tenantId != ''">
+      and t1.tenant_id = #{tenantId,jdbcType=VARCHAR}
+    </if>
+    <if test="tenantName != null and tenantName != ''">
+      and tenant.name like concat('%', #{tenantName,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="username != null and username != ''">
+      and t1.username like concat('%', #{username,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="realname != null and realname != ''">
+      and t1.realname like concat('%', #{realname,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="realnames != null and realnames != ''">
+      and t1.realname in
+      <foreach close=")" collection="realnames.split(',')" item="item" open="(" separator=", ">
+        #{item,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    <if test="enable != null">
+      and t1.enable = #{enable,jdbcType=TINYINT}
+    </if>
+    <if test="searchContent != null and searchContent != ''">
+      and (
+      t1.username like concat('%', #{searchContent,jdbcType=VARCHAR}, '%')
+      or t1.realname like concat('%', #{searchContent,jdbcType=VARCHAR}, '%')
+      )
+    </if>
+    <if test="orgName != null and orgName != ''">
+      and t2.name like concat('%', #{orgName,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="roleNames != null and roleNames != ''">
+      and t4.name like concat('%', #{roleNames,jdbcType=VARCHAR}, '%')
+    </if>
+    group by t1.id,
+    t1.username,
+    t1.realname,
+    t1.avatar,
+    t1.enable,
+    t1.openid,
+    t1.org_id,
+    t1.expired_time,
+    t1.update_password,
+    t1.last_password_change_time,
+    t1.create_time,
+    t1.tenant_id,
+    t2.name,
+    tenant.name
+    order by t1.create_time desc
+  </select>
+
+  <select id="selectUserInfoById" resultMap="SysUserInfoMap">
+    select
+    t1.tenant_id,
+    t1.username,
+    t1.realname,
+    t1.avatar,
+    t1.openid,
+    t1.org_id,
+    role.id roleId,
+    role.name roleName,
+    role.code roleCode,
+    role.remark roleRemark
+    from sys_user t1
+    left join sys_user_role x on t1.id = x.user_id
+    left join sys_role role on role.id = x.role_id and role.del_flag = 0 and role.enable = 1
+    where t1.del_flag = 0
+    and t1.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <!--auto generated by MybatisCodeHelper on 2021-01-19-->
+  <update id="updateAvatar">
+    update sys_user
+    set avatar=#{avatar,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+    <if test="tenantId != null and tenantId != ''">
+      and tenant_id = #{tenantId,jdbcType=VARCHAR}
+    </if>
+  </update>
+
+  <update id="updateOtpSecretByUserId">
+    update sys_user
+    set otp_secret = #{otpSecret,jdbcType=VARCHAR}
+    where id = #{userId,jdbcType=VARCHAR}
+    <if test="tenantId != null and tenantId != ''">
+      and tenant_id = #{tenantId,jdbcType=VARCHAR}
+    </if>
+  </update>
+
+  <!--修改账号过期时间-->
+  <update id="updateExpiredTimeByUserId">
+    update sys_user
+    set expired_time=#{expiredTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

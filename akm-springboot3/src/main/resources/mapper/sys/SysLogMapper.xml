@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akm.springboot3.web.sys.mapper.SysLogMapper">
+  <resultMap id="BaseResultMap" type="com.akm.springboot3.web.sys.entity.SysLog">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="request_id" jdbcType="VARCHAR" property="requestId"/>
+    <result column="api_description" jdbcType="VARCHAR" property="apiDescription"/>
+    <result column="uri" jdbcType="VARCHAR" property="uri"/>
+    <result column="method" jdbcType="VARCHAR" property="method"/>
+    <result column="parameter" jdbcType="LONGVARCHAR" property="parameter"/>
+    <result column="result" jdbcType="LONGVARCHAR" property="result"/>
+    <result column="success" jdbcType="INTEGER" property="success"/>
+    <result column="start_time" jdbcType="BIGINT" property="startTime"/>
+    <result column="spend_time" jdbcType="BIGINT" property="spendTime"/>
+    <result column="ip" jdbcType="VARCHAR" property="ip"/>
+    <result column="url" jdbcType="VARCHAR" property="url"/>
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent"/>
+    <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+    <result column="username" jdbcType="VARCHAR" property="username"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="client_type" jdbcType="VARCHAR" property="clientType"/>
+    <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+  </resultMap>
+
+  <resultMap id="LoginLogResultMap" type="com.akm.springboot3.web.sys.entity.SysLogLogin" extends="BaseResultMap">
+  </resultMap>
+
+  <resultMap id="ExceptionLogResultMap" type="com.akm.springboot3.web.sys.entity.SysLogEx"
+             extends="BaseResultMap">
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="type" jdbcType="TINYINT" property="type"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, request_id, api_description, uri, method, parameter, result, success, start_time,
+    spend_time, ip, url, user_id, username, name, client_type
+  </sql>
+  <insert id="insert" parameterType="com.akm.springboot3.web.sys.entity.SysLog">
+    <!--@mbg.generated-->
+    insert into sys_log (id, request_id, api_description, uri,
+    method, parameter, result,
+    success, start_time, spend_time,
+    ip, url, user_agent,
+    user_id, username, name,
+    client_type, create_time)
+    values (#{id,jdbcType=VARCHAR}, #{requestId,jdbcType=VARCHAR}, #{apiDescription,jdbcType=VARCHAR},
+    #{uri,jdbcType=VARCHAR},
+    #{method,jdbcType=VARCHAR}, #{parameter,jdbcType=LONGVARCHAR}, #{result,jdbcType=LONGVARCHAR},
+    #{success,jdbcType=BOOLEAN}, #{startTime,jdbcType=BIGINT}, #{spendTime,jdbcType=BIGINT},
+    #{ip,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR},
+    #{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+    #{clientType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <sql id="query">
+    <if test="id != null and id != ''">
+      and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="requestId != null and requestId != ''">
+      and request_id = #{requestId,jdbcType=VARCHAR}
+    </if>
+    <if test="apiDescription != null and apiDescription != ''">
+      and api_description like CONCAT('%', #{apiDescription,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="uri != null and uri != ''">
+      and uri like CONCAT('%', #{uri,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="method != null and method != ''">
+      and method = #{method,jdbcType=VARCHAR}
+    </if>
+    <if test="parameter != null and parameter != ''">
+      and parameter like CONCAT('%', #{parameter,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="result != null and result != ''">
+      and result like CONCAT('%', #{result,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="success != null">
+      and success = #{success,jdbcType=BOOLEAN}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and start_time = #{startTime,jdbcType=BIGINT}
+    </if>
+    <if test="spendTime != null and spendTime != ''">
+      and spend_time = #{spendTime,jdbcType=BIGINT}
+    </if>
+    <if test="ip != null and ip != ''">
+      and ip = #{ip,jdbcType=VARCHAR}
+    </if>
+    <if test="url != null and url != ''">
+      and url like CONCAT('%', #{url,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="userAgent != null and userAgent != ''">
+      and user_agent like CONCAT('%', #{userAgent,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="userId != null and userId != ''">
+      and user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="username != null and username != ''">
+      and username like CONCAT('%', #{username,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="name != null and name != ''">
+      and name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="clientType != null and clientType != ''">
+      and client_type = #{clientType,jdbcType=VARCHAR}
+    </if>
+    <if test="startTimeBegin != null">
+      and start_time >= #{startTimeBegin,jdbcType=BIGINT}
+    </if>
+    <if test="startTimeEnd != null">
+      and start_time &lt;= #{startTimeEnd,jdbcType=BIGINT}
+    </if>
+  </sql>
+  <!--auto generated by MybatisCodeHelper on 2020-07-05-->
+  <select id="findByAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>,
+    log.create_time,
+    log.update_time
+    from sys_log log
+    <where>
+      <include refid="query"/>
+    </where>
+    order by log.create_time desc
+  </select>
+
+  <select id="findByAllLoginLog" resultMap="LoginLogResultMap">
+    select
+    <include refid="Base_Column_List"/>,
+    log.create_time,
+    log.update_time
+    from sys_log_login t1
+    inner join sys_log log on t1.log_id = log.id
+    where log.success = 1
+    <include refid="query"/>
+    order by log.create_time desc
+  </select>
+
+  <select id="findByAllExceptionLog" resultMap="ExceptionLogResultMap">
+    select
+    <include refid="Base_Column_List"/>,
+    log.create_time,
+    log.update_time,
+    t1.type,
+    t1.content
+    from sys_log_exception t1
+    inner join sys_log log on t1.log_id = log.id
+    <where>
+      <include refid="query"/>
+    </where>
+    order by log.create_time desc
+  </select>
+
+  <!--auto generated by MybatisCodeHelper on 2020-08-24-->
+  <select id="getOneById" resultMap="BaseResultMap">
+    select *
+    from sys_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getExceptionLogById" resultMap="ExceptionLogResultMap">
+    select log.*,
+    t1.content,
+    t1.type
+    from sys_log_exception t1
+    inner join sys_log log on t1.log_id = log.id
+    where log.id = #{id,jdbcType=VARCHAR}
+  </select>
+</mapper>

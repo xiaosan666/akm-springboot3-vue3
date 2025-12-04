@@ -1,0 +1,107 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: akm-springboot3
+  jackson:
+#     date-format: yyyy-MM-dd HH:mm:ss 启用加密后会失效，所以注释，所有日期字段需要使用@JsonFormat格式化或或通知前端格式化
+    time-zone: GMT+8
+    locale: zh-CN
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 100MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+server:
+  port: 33000
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/**/*.xml
+# 分页插件配置：https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md
+pagehelper:
+  reasonable: true
+  pageSizeZero: true
+  supportMethodsArguments: true
+logging:
+  level:
+    root: info
+    "[com.akm.springboot3]": info
+  file:
+    path: ./logs
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"
+snowflake:
+  worker-id: 1 # 雪花算法终端ID，最大支持机器节点数0~31
+
+jasypt:
+  encryptor:
+    password: 123456
+
+dbAesKey: 12348766 # 数据库字段加密key默认值，应用启动时指定该参数值：java -jar *.jar --dbAesKey=password
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /akm-docs
+  swagger-ui:
+    enabled: true
+    path: /doc.html
+  show-actuator: false
+
+minio:
+  endpoint: http://127.0.0.1:9001 # MinIo服务所在内网地址，应用上传走内网
+  publicEndpoint: http://127.0.0.1:9001 # 文件服务器外网地址，一般为使用nginx代理endpoint后的地址
+  accessKey: minio # 访问的key
+  secretKey: Minio@1234  # 访问的秘钥
+  bucketName: akm-1 # 存储桶名称，不同应用使用不同的桶，请提前在文件服务器新建存储桶，，命名约定（应用名称简写-编号）
+  # 允许上传的文件类型后缀，需要注意的是xlsx、docx等Office2007格式，根据文件内容获取类型会全部识别为zip，这些格式本质上是XML文件打包为zip
+  allowType: jpg|jpeg|png|gif|webp|tif|bmp|dwg|pdf|docx|doc|xlsx|xls|ppt|pptx|zip
+
+magic-api:
+  web: /magic # UI请求的界面以及UI服务地址
+  resource: #配置存储方式
+    type: database # 配置存储在数据库中
+    readonly: false # 是否是只读模式
+  prefix: / # 接口前缀，可以不配置
+  auto-import-module: db,log  # 自动导入的模块
+  auto-import-package: com.akm.springboot3.core.utils.*,java.lang.*,java.util.* #自动导包
+  sql-column-case: camel #启用驼峰命名转换
+  support-cross-domain: true # 跨域支持，默认开启
+  secret-key: Magic@1234 # 远程推送时的秘钥，未配置则不开启推送
+  push-path: /_magic-api-sync #远程推送的路径，默认为/_magic-api-sync
+  show-sql: true #配置打印SQL
+  page-config:
+    pageSize: size
+    pageNum: page
+  response: |- #配置JSON格式，格式为magic-script中的表达式
+    {
+      code: code,
+      msg: message,
+      data,
+    }
+  response-code:
+    success: 100200 #执行成功的code值
+    invalid: 100500 #参数验证未通过的code值
+    exception: 100500 #执行出现异常的code值
+  throw-exception: true #执行出错时是否抛出异常
+  backup: #备份相关配置
+    enable: true #是否启用
+    max-history: 180 #备份保留天数，-1为永久保留
+    # datasource: magic  #指定数据源（单数据源时无需配置，多数据源时默认使用主数据源，如果存在其他数据源中需要指定。）
+    table-name: magic_api_backup #使用数据库存储备份时的表名
+  page:
+    size: size # 页大小的参数名称
+    page: page # 页码的参数名称
+    default-page: 1 # 未传页码时的默认首页
+    default-size: 10 # 未传页大小时的默认页大小
+  security:
+    username: magic # 登录用的用户名
+    password: Magic@1234 # 登录用的密码
+  springdoc:
+     location: /akm-docs/magic-api/swagger2.json

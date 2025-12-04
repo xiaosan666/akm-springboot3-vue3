@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: akm-springboot3  # 应用名称，对应 Config Server 中的配置文件前缀
+  profiles:
+    active: dev  # 激活的环境，对应 Config Server 中的 profile
+  cloud:
+    config:
+      # Config Server 配置
+      enabled: true  # 是否启用 Config Client
+      uri: http://localhost:33033  # Config Server 地址
+      name: ${spring.application.name}  # 配置文件名称，默认使用 application.name
+      profile: ${spring.profiles.active}  # 环境，默认使用 profiles.active
+      # label: master  # Git 分支，如果 Config Server 使用 Git 存储
+
+      # 失败快速响应配置
+      fail-fast: false  # 连接不到 Config Server 时是否快速失败，false 表示使用本地配置
+
+      # 重试配置（可选）
+      retry:
+        max-attempts: 3  # 最大重试次数
+        initial-interval: 2000  # 初始重试间隔(毫秒)
+        max-interval: 4000  # 最大重试间隔(毫秒)
+        multiplier: 1.1  # 间隔乘数
+

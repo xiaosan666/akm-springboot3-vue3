@@ -1,0 +1,74 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/akm_springboot?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: LCEs96QS69pqOReWmlQW3w==  # 临时使用明文，请替换为你的实际密码
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: Redis@1234
+      database: 0
+
+
+akm:
+  cacheType: local # 缓存类型：local, redis 生产环境务必使用redis
+  enableLoginCaptcha: false # 登陆接口是否校验验证码
+  forcePasswordChange: false # 用户首次登录是否要求修改密码
+  forceGenerateRsaKey: false # 系统启动时是否强制生成rsa秘钥对，若为false系统启动先判断缓存中是否存在，不存在则生成
+  tokenTimeout: 120 # 令牌过期时间（分钟）,web端一般为30分钟
+  passwordEffectiveDays: -1 # 密码有效期（天数），超过设置天数用户必须重新修改密码， -1 表示不限制有效期
+  accountEffectiveDays: -1 # 账号有效期（天数），用户超过X填未登录则账号过期， -1 表示不限制有效期
+  enabledCorsAllow: false  # 前后端在同一域名下部署设置为false，否则存在跨域需要设置为true，并设置允许跨域的域名
+  corsAllowDomain: # 允许以下地址跨域访问
+    - https://tapi.test.com
+    - http://localhost:8080
+  alwaysExcludeUrls: # 以下路径不经过过滤器，拦截器处理（命名检查、权限校验、签名、请求参数解密，响应加密）
+    - /error/**
+    - /druid/**
+    - /favicon.ico
+    - /doc.html
+    - /akm-docs/**
+    - /webjars/**
+    - /magic/**
+    - /.well-known/**
+    - /swagger-ui/**
+#     - /swagger-ui.html
+#     - /swagger-resources/**
+
+  enabledEncrypt: false   # 是否启用参数体解密，响应体加密
+  encryptExcludeUrls: # 不启用加解密的路径
+    - /auth/open/config
+    - /auth/open/loginByAccount4a
+
+  enabledSign: false # 是否启用签名校验
+  signTimeTolerance: 120  # 签名时间有效范围，单位秒
+  signExcludeUrls: # 不校验签名的路径
+    - /auth/open/config
+    - /auth/open/loginByAccount4a
+
+  enabledAuth: true  # 是否启用api权限检查，框架约定包含`/open/`的接口不校验权限，包含`/public/`的接口只验证是否登录
+  openUrls:  # 以下路径不校验权限
+  publicUrls: # 以下路径只验证是否登录
+
+  enabledApiNameCheck: true # 是否启用接口路径命名检查，启用则所有uri必须包含`/view/`或`/op/`或`/open/`或`/public/`
+  apiNameCheckExcludeUrls: # 不校验命名的路径
+
+  # 请求参数包含以下敏感词会触发异常
+  sensitiveWord: select|insert|update|delete|where|drop|create|table|truncate|grant|char|xp_cmdshell|exec|execute|netlocalgroup|administrators|0x0d|0x0a|load_file|javascript|script|iframe|root
+  # 不对参数进行html转义和敏感词校验的路径（存在安全隐患）
+  sensitiveWordExcludeUrls:
+
+  enabledApiFreq: true # 是否启用接口请求频率检查，针对具体接口也可使用自定义注解@ApiFreqLimit进行频率限制
+  apiFreq: 600,100 # 接口请求频率（秒，次），值为-1则不限制，600,100表示10分钟内对同一个接口最大访问次数为100
+  opApiFreq: 600,20  # 操作类接口频率（秒，次），值为-1则不限制，操作类是url包含`/op/`的接口，一般为新增编辑删除接口
+  freqExcludeUrls:  # 不校验频率的路径
+
+  login4a: # 4a账号登录相关配置
+    enable: true # 是否启用4a账号登录
+    akm4aServerUrl: http://localhost:8811?appId=akm001 # akm-4a服务所在地址，其中appId参数是当前应用和akm-4a服务约定的id，用于akm-4a服务区分不同应用
+    aesKey: d949c429c4e811eb # 解密用户信息的aes key
+    successRedirectUrl: http://localhost:8802/admin/login # 登录成功重定向地址，地址后面将拼接上token参数，前端通过该token判断是否登录成功
+  mybatis:
+    printSql: true
