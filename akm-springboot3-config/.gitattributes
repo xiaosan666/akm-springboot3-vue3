@@ -77,27 +77,31 @@ Dockerfile text eol=lf
 *.dockerfile text eol=lf
 .dockerignore text eol=lf
 
-# 确保 Git 不转换这些二进制文件
+# ========== 二进制文件 ==========
+# 图片
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.gif binary
-*.bmp binary
 *.ico binary
 *.svg binary
+
+# 办公文档
+*.doc binary
+*.docx binary
+*.xls binary
+*.xlsx binary
+*.ppt binary
+*.pptx binary
 *.pdf binary
+
+# 压缩包
 *.zip binary
 *.tar binary
 *.gz binary
-*.bz2 binary
-*.xz binary
-*.7z binary
-*.rar binary
-*.exe binary
-*.dll binary
-*.so binary
-*.dylib binary
-*.class binary
 *.jar binary
 *.war binary
 *.ear binary
+
+# Java 字节码
+*.class binary
