@@ -160,6 +160,9 @@ public class BaseApi {
         String password = login.getPassword();
         String clientType = login.getClientType();
 
+        // 调用登录接口清空线程类中”可能“存在的其他用户信息
+        UserThreadUtils.clear();
+
         // 检查密码错误次数
         this.checkLoginErrors(username);
 
