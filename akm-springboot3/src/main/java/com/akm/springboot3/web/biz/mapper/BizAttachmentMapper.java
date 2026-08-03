@@ -26,4 +26,6 @@ public interface BizAttachmentMapper {
 
     List<BizAttachment> findByRecordIdList(@Param("idList") List<String> idList);
 
+    List<BizAttachment> findByAttachmentUrl(@Param("attachmentUrl") String attachmentUrl);
+
 }

@@ -151,4 +151,11 @@
       #{item,jdbcType=VARCHAR}
     </foreach>
   </select>
+
+  <select id="findByAttachmentUrl" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from biz_attachment
+    where attachment_url = #{attachmentUrl,jdbcType=VARCHAR}
+  </select>
 </mapper>

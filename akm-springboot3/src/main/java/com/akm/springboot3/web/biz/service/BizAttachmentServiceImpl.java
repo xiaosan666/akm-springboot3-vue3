@@ -95,6 +95,10 @@ public class BizAttachmentServiceImpl implements BizAttachmentService {
     public List<BizAttachment> findByRecordIdList(List<String> idList) {
         return bizAttachmentMapper.findByRecordIdList(idList);
     }
-}
 
+    @Override
+    public List<BizAttachment> findByAttachmentUrl(String attachmentUrl) {
+        return bizAttachmentMapper.findByAttachmentUrl(attachmentUrl);
+    }
+}
 

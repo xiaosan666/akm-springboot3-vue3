@@ -25,6 +25,7 @@ public interface BizAttachmentService {
 
     List<BizAttachment> findByRecordIdList(List<String> idList);
 
-}
+    List<BizAttachment> findByAttachmentUrl(String attachmentUrl);
 
+}
 

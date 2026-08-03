@@ -317,6 +317,7 @@ public class BaseApi {
     @PostMapping("/op/rolePlay")
     @ApiFreqLimit
     public String rolePlay(@RequestBody @Validated RolePlayWrapper params) {
+        AssertUtils.isTrue(UserThreadUtils.isPlatformAdmin(), CodeMsg.FORBIDDEN);
         SysUser user = sysUserService.selectOneById(params.getUserId());
         return getToken(user, params.getClientType(), false);
     }

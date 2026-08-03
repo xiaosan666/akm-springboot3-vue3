@@ -5,10 +5,13 @@ import cn.hutool.core.io.FileUtil;
 import com.akm.springboot3.core.annotation.ApiFreqLimit;
 import com.akm.springboot3.core.constant.AkmConstants;
 import com.akm.springboot3.core.exception.BusinessException;
+import com.akm.springboot3.core.utils.StringUtils;
 import com.akm.springboot3.core.utils.ThreadContext;
+import com.akm.springboot3.core.utils.UserThreadUtils;
 import com.akm.springboot3.core.utils.ZipUtils;
 import com.akm.springboot3.file.utils.FileUtils;
 import com.akm.springboot3.file.utils.MinioUtils;
+import com.akm.springboot3.web.biz.service.BizAttachmentService;
 import io.minio.errors.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,6 +31,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 
 @Tag(name = "file-文件服务")
@@ -35,11 +39,18 @@ import java.security.NoSuchAlgorithmException;
 @RequestMapping("/share/public/file")
 @Slf4j
 public class FileApi {
+
     /**
      * 允许上传的文件类型后缀
      */
     @Value("${minio.allowType}")
     private String allowType;
+
+    private final BizAttachmentService bizAttachmentService;
+
+    FileApi(BizAttachmentService bizAttachmentService) {
+        this.bizAttachmentService = bizAttachmentService;
+    }
 
     @Operation(summary = "文件上传", description = "只支持单文件上传；上传成功返回文件相对路径(objectKey)")
     @PostMapping("/upload")
@@ -69,12 +80,10 @@ public class FileApi {
     @PostMapping("/getObject")
     @ApiFreqLimit(time = 600, limit = 20)
     public void getObject(@RequestBody String objectKey, HttpServletResponse response) {
-        if (FileUtils.isInvalidKey(allowType, objectKey)) {
-            throw new BusinessException("文件下载失败，路径无效或文件类型不允许");
-        }
+        String formattedKey = checkAndFormatObjectKey(objectKey, "文件下载失败，路径无效或文件类型不允许");
         try (
             OutputStream out = response.getOutputStream();
-            FilterInputStream in = MinioUtils.getObject(FileUtils.formatKey(objectKey))
+            FilterInputStream in = MinioUtils.getObject(formattedKey)
         ) {
             byte[] buff = new byte[1024];
             int len;
@@ -91,13 +100,11 @@ public class FileApi {
     @PostMapping("/getObjectToZip")
     @ApiFreqLimit(time = 600, limit = 20)
     public void getObjectToZip(@RequestBody String objectKey, HttpServletResponse response) {
-        if (FileUtils.isInvalidKey(allowType, objectKey)) {
-            throw new BusinessException("文件下载失败，路径无效或文件类型不允许");
-        }
+        String formattedKey = checkAndFormatObjectKey(objectKey, "文件下载失败，路径无效或文件类型不允许");
         try (
             OutputStream out = response.getOutputStream();
             //原始文件数据
-            FilterInputStream in = MinioUtils.getObject(FileUtils.formatKey(objectKey))
+            FilterInputStream in = MinioUtils.getObject(formattedKey)
         ) {
             //获取文件名
             int lastFileSpe = objectKey.lastIndexOf('/');
@@ -119,17 +126,41 @@ public class FileApi {
     @PostMapping("/getFileUrl")
     @ApiFreqLimit(time = 600, limit = 100)
     public String getFileUrl(@RequestBody String objectKey) throws IOException, InvalidResponseException, InvalidKeyException, NoSuchAlgorithmException, ServerException, ErrorResponseException, XmlParserException, InsufficientDataException, InternalException {
-        if (FileUtils.isInvalidKey(allowType, objectKey)) {
-            throw new BusinessException("文件下载失败，路径无效或文件类型不允许");
-        }
-        return MinioUtils.getDownloadPresignedObjectUrl(FileUtils.formatKey(objectKey));
+        String formattedKey = checkAndFormatObjectKey(objectKey, "文件下载失败，路径无效或文件类型不允许");
+        return MinioUtils.getDownloadPresignedObjectUrl(formattedKey);
     }
 
     @Operation(summary = "删除文件")
     @PostMapping("/delFile")
     @ApiFreqLimit
     public void removeObject(@RequestBody String objectKey) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        MinioUtils.removeObject(FileUtils.formatKey(objectKey));
+        String formattedKey = checkAndFormatObjectKey(objectKey, "文件删除失败，路径无效或文件类型不允许");
+        MinioUtils.removeObject(formattedKey);
+    }
+
+    private String checkAndFormatObjectKey(String objectKey, String message) {
+        if (FileUtils.isInvalidKey(allowType, objectKey)) {
+            throw new BusinessException(message);
+        }
+        String formattedKey = FileUtils.formatKey(objectKey);
+        assertObjectAccess(formattedKey);
+        return formattedKey;
+    }
+
+    private void assertObjectAccess(String objectKey) {
+        if (StringUtils.isBlank(UserThreadUtils.getToken()) || UserThreadUtils.isPlatformAdmin()) {
+            return;
+        }
+        // toto 需完善数据权限校验
+        if (isRegisteredAttachment(objectKey)) {
+            return;
+        }
+        throw new BusinessException("无权访问文件");
+    }
+
+    private boolean isRegisteredAttachment(String objectKey) {
+        List<?> attachments = bizAttachmentService.findByAttachmentUrl(objectKey);
+        return attachments != null && !attachments.isEmpty();
     }
 
 }
