@@ -34,6 +34,9 @@ import java.util.List;
 @Slf4j
 public class SysLogApi {
 
+    private static final String ALL_LOG_FILE_NAME = "all_log.log";
+    private static final String ERR_LOG_FILE_NAME = "err_log.log";
+
     @Value("${logging.file.path}")
     private String logPath;
 
@@ -122,13 +125,16 @@ public class SysLogApi {
     @PostMapping("/view/run_log")
     public LinkedList<String> runLog(@RequestBody RunLogReq runLogReq) throws IOException {
         log.info("\n\n------- 刷新日志 -------\n\n");
-        // 日志文件路径，如./logs/all_log.log
-        String logFile = logPath + "/" + runLogReq.getLogFileName();
         runLogReq.setMaxLine(runLogReq.getMaxLine() > 5000 ? 5000 : runLogReq.getMaxLine());
         runLogReq.setMaxLine(runLogReq.getMaxLine() < 100 ? 100 : runLogReq.getMaxLine());
-        java.io.File file = new java.io.File(logFile);
+        String logFileName = runLogReq.getLogFileName();
+        if (!ALL_LOG_FILE_NAME.equals(logFileName) && !ERR_LOG_FILE_NAME.equals(logFileName)) {
+            throw new BusinessException("日志文件名不合法");
+        }
+        // 日志文件路径，如./logs/all_log.log
+        java.io.File file = new java.io.File(logPath, logFileName);
         if (!file.exists()) {
-            throw new BusinessException("日志文件不存在: " + logFile);
+            throw new BusinessException("日志文件不存在: " + logPath + "/" + logFileName);
         }
         // 先定位到文件末尾向前1MB（或文件全部）
         long fileLength = file.length();

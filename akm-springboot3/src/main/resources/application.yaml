@@ -14,7 +14,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh,health,info,env  # 开放端点：refresh(刷新配置), health(健康检查), info(应用信息), env(环境变量)
+        include: refresh,health  # refresh,health,info,env 开放端点：refresh(刷新配置), health(健康检查), info(应用信息), env(环境变量)
       base-path: /act  # 端点基础路径
   endpoint:
     health:

@@ -42,6 +42,9 @@ public class CorsFilter implements Filter {
      */
     private Set<String> autoAllowedHosts = Collections.emptySet();
 
+    private static final String ORIGIN_WARN_MSG = "Origin配置不合法";
+
+
     @Override
     public void init(FilterConfig filterConfig) {
         this.enabled = "1".equals(filterConfig.getInitParameter("enabled"));
@@ -50,7 +53,10 @@ public class CorsFilter implements Filter {
             this.allowedOrigins = Arrays.stream(allowDomainStr.split(","))
                 .map(String::trim)
                 .filter(StringUtils::isNotBlank)
-                .peek(this::validateConfiguredOrigin)
+                .map(origin -> {
+                    this.validateConfiguredOrigin(origin);  // 校验
+                    return origin;                          // 校验通过后返回原值
+                })
                 .collect(Collectors.toCollection(HashSet::new));
         }
         String autoAllowedOriginHosts = filterConfig.getInitParameter("autoAllowedOriginHosts");
@@ -205,7 +211,7 @@ public class CorsFilter implements Filter {
             validateOriginUri(uri);
             return uri;
         } catch (URISyntaxException e) {
-            throw new BusinessException("Origin格式不合法");
+            throw new BusinessException(ORIGIN_WARN_MSG);
         }
     }
 
@@ -213,14 +219,14 @@ public class CorsFilter implements Filter {
         try {
             validateOriginUri(new URI(origin));
         } catch (URISyntaxException e) {
-            throw new BusinessException("Origin配置不合法");
+            throw new BusinessException(ORIGIN_WARN_MSG);
         }
     }
 
     private void validateOriginUri(URI uri) {
-        AssertUtils.isTrue(StringUtils.isNotBlank(uri.getScheme()) && StringUtils.isNotBlank(uri.getHost()), "Origin配置不合法");
-        AssertUtils.isTrue(uri.getPath() == null || uri.getPath().isEmpty() || "/".equals(uri.getPath()), "Origin配置不合法");
-        AssertUtils.isTrue(uri.getQuery() == null && uri.getFragment() == null, "Origin配置不合法");
+        AssertUtils.isTrue(StringUtils.isNotBlank(uri.getScheme()) && StringUtils.isNotBlank(uri.getHost()), ORIGIN_WARN_MSG);
+        AssertUtils.isTrue(uri.getPath() == null || uri.getPath().isEmpty() || "/".equals(uri.getPath()), ORIGIN_WARN_MSG);
+        AssertUtils.isTrue(uri.getQuery() == null && uri.getFragment() == null, ORIGIN_WARN_MSG);
     }
 
 }
