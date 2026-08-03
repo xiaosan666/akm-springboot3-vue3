@@ -64,7 +64,9 @@ public class FilterConfig {
         bean.setFilter(new CorsFilter());
         bean.addUrlPatterns("/*");
         bean.setOrder(1);
-        bean.setInitParameters(getInitParameter(akmConfig.getEnabledCorsAllow(), akmConfig.getCorsAllowDomain()));
+        Map<String, String> initParameters = getInitParameter(akmConfig.getEnabledCorsAllow(), akmConfig.getCorsAllowDomain());
+        initParameters.put("autoAllowedOriginHosts", joinList(akmConfig.getAutoAllowedOriginHosts()));
+        bean.setInitParameters(initParameters);
         return bean;
     }
 
@@ -103,6 +105,10 @@ public class FilterConfig {
         initParameters.put("enabled", enable ? "1" : "0");
         initParameters.put("excludeUri", String.join(",", excludeUri));
         return initParameters;
+    }
+
+    private String joinList(List<String> values) {
+        return values == null ? "" : String.join(",", values);
     }
 
 }

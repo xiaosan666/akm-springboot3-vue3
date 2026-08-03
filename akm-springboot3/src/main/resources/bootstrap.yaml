@@ -6,7 +6,7 @@ spring:
   cloud:
     config:
       # Config Server 配置
-      enabled: true  # 是否启用 Config Client
+      enabled: false  # 是否启用 Config Client
       uri: http://localhost:33033  # Config Server 地址
       name: ${spring.application.name}  # 配置文件名称，默认使用 application.name
       profile: ${spring.profiles.active}  # 环境，默认使用 profiles.active

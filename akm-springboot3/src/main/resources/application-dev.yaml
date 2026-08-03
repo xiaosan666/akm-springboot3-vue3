@@ -20,10 +20,12 @@ akm:
   tokenTimeout: 120 # 令牌过期时间（分钟）,web端一般为30分钟
   passwordEffectiveDays: -1 # 密码有效期（天数），超过设置天数用户必须重新修改密码， -1 表示不限制有效期
   accountEffectiveDays: -1 # 账号有效期（天数），用户超过X填未登录则账号过期， -1 表示不限制有效期
-  enabledCorsAllow: false  # 前后端在同一域名下部署设置为false，否则存在跨域需要设置为true，并设置允许跨域的域名
+  enabledCorsAllow: true  # # 生产环境建议开启限制请求Origin;允许跨域时访问开启，并设置corsAllowDomain白名单
   corsAllowDomain: # 允许以下地址跨域访问
-    - https://tapi.test.com
-    - http://localhost:8080
+  autoAllowedOriginHosts: # 自动放行的Origin host，仅校验host，不区分协议和端口；支持单个host和IP尾段范围，如100.94.3.212-218
+    - localhost
+    - 127.0.0.1
+    - 192.168.247.226 # 测试
   alwaysExcludeUrls: # 以下路径不经过过滤器，拦截器处理（命名检查、权限校验、签名、请求参数解密，响应加密）
     - /error/**
     - /druid/**
@@ -34,8 +36,9 @@ akm:
     - /magic/**
     - /.well-known/**
     - /swagger-ui/**
-#     - /swagger-ui.html
-#     - /swagger-resources/**
+    - /swagger-ui.html
+    - /swagger-resources/**
+    - /act/**
 
   enabledEncrypt: false   # 是否启用参数体解密，响应体加密
   encryptExcludeUrls: # 不启用加解密的路径

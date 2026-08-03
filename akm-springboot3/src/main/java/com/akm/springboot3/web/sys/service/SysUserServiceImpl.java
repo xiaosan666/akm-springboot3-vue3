@@ -139,7 +139,7 @@ public class SysUserServiceImpl implements SysUserService {
         String userId = SnowflakeUtils.id();
         record.setId(userId);
         // 若不是平台管理员角色，强制设置租户为当前用户所属租户
-        if (!UserThreadUtils.isPlatformAdmin()) {
+        if (!UserThreadUtils.isPlatformAdmin() && StringUtils.isEmpty(record.getTenantId())) {
             record.setTenantId(UserThreadUtils.getTenantId());
         }
         String salt = EncryptUtils.getSalt();
@@ -157,7 +157,7 @@ public class SysUserServiceImpl implements SysUserService {
         String userId = record.getId();
         AssertUtils.notBlank(userId, "用户编号不能为空");
         // 若不是平台管理员角色，强制设置租户为当前用户所属租户
-        if (!UserThreadUtils.isPlatformAdmin()) {
+        if (!UserThreadUtils.isPlatformAdmin() && StringUtils.isEmpty(record.getTenantId())) {
             record.setTenantId(UserThreadUtils.getTenantId());
         }
 

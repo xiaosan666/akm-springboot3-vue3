@@ -15,7 +15,7 @@ management:
     web:
       exposure:
         include: refresh,health,info,env  # 开放端点：refresh(刷新配置), health(健康检查), info(应用信息), env(环境变量)
-      base-path: /actuator  # 端点基础路径
+      base-path: /act  # 端点基础路径
   endpoint:
     health:
       show-details: when-authorized  # 健康检查详情显示策略

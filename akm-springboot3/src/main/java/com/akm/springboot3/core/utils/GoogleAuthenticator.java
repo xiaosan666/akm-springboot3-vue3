@@ -141,7 +141,7 @@ public class GoogleAuthenticator {
     //     System.out.println(generateSecretKey());
     //
     //     // 生成二维码内容，用于APP扫码绑定秘钥
-    //     System.out.println(getQrCodeData("DVMJDGSA3ODOS6FNSC7QHNFYWAQEI6H2", "18688498342"));
+    //     System.out.println(getQrCodeData("DVMJDGSA3ODOS6FNSC7QHNFYWAQEI6H2", "username"));
     //     //
     //     // 根据秘钥生成一次性验证码
     //     System.out.println(getTotpCode("DVMJDGSA3ODOS6FNSC7QHNFYWAQEI6H2"));

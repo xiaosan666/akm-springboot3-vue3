@@ -37,6 +37,7 @@ public class AkmConfig {
 
     private Boolean enabledCorsAllow;
     private List<String> corsAllowDomain;
+    private List<String> autoAllowedOriginHosts;
 
     private List<String> alwaysExcludeUrls;
 

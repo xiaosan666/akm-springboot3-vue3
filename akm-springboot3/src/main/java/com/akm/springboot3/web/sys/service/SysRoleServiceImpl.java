@@ -42,7 +42,7 @@ public class SysRoleServiceImpl implements SysRoleService {
             num = sysRoleMapper.updateByPrimaryKeySelective(record);
         }
         // 若不是平台管理员角色，强制设置租户为当前用户所属租户
-        if (!UserThreadUtils.isPlatformAdmin()) {
+        if (!UserThreadUtils.isPlatformAdmin() && StringUtils.isEmpty(record.getTenantId())) {
             record.setTenantId(UserThreadUtils.getTenantId());
         }
         // 更新角色需要删除角色资源缓存数据
