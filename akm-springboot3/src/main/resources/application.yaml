@@ -30,6 +30,87 @@ spring:
     active: dev
   application:
     name: akm-springboot3
+  # ================================== Druid 连接池 ==================================
+  # 说明：
+  # 1. 本段只配置连接池与监控，不包含任何与数据库类型绑定的属性（url、驱动、账号在 application-{profile}.yaml 中配置），
+  #    切换 MySQL / PostgreSQL / 达梦等数据库时无需修改此处。
+  # 2. 不要配置 spring.datasource.druid.filters 与 filter.wall.enabled，
+  #    filter 通过 Bean 方式装配，WallFilter 由 DruidConfig 按数据库类型自动决定是否开启。
+  # 3. 监控页面：http://localhost:33000/druid/index.html
+  datasource:
+    # 使用 Druid 连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # ------------------------------ 连接池参数 ------------------------------
+      initial-size: 5                                   # 初始化时建立的物理连接数
+      min-idle: 5                                       # 最小连接数
+      max-active: 20                                    # 最大连接数
+      max-wait: 60000                                   # 获取连接最大等待时间(ms)，-1 表示一直等待
+      time-between-eviction-runs-millis: 60000          # 空闲连接检测间隔(ms)
+      min-evictable-idle-time-millis: 300000            # 连接最小空闲时间(ms)，超过后可被回收
+      max-evictable-idle-time-millis: 900000            # 连接最大空闲时间(ms)，超过后强制回收
+      keep-alive: true                                  # 空闲连接保活，避免被数据库侧主动断开
+      phy-timeout-millis: 1800000                       # 物理连接最大存活时间(ms)，到期强制重建
+      connection-error-retry-attempts: 3                # 获取连接失败后的重试次数
+      break-after-acquire-failure: false                # 重试耗尽后是否中断（false 便于数据库重启后自动恢复）
+      remove-abandoned: true                            # 回收应用忘记关闭的连接（连接泄漏检测）
+      remove-abandoned-timeout-millis: 1800000          # 连接借出超过该时间(ms)视为泄漏并回收
+      log-abandoned: true                               # 回收泄漏连接时打印日志，便于定位泄漏代码
+      pool-prepared-statements: true                    # 缓存 PreparedStatement
+      max-pool-prepared-statement-per-connection-size: 20
+      # ---------------------------- 连接有效性检测 ----------------------------
+      # 采用 JDBC4 标准 Connection#isValid 校验，MySQL/PostgreSQL/达梦 等 JDBC4 驱动均适用，
+      # 因此无需按数据库类型配置 validation-query；如希望 Druid 按驱动自动选择校验器，删除下面这两行即可。
+      valid-connection-checker-class-name: com.alibaba.druid.pool.JDBC4ValidConnectionChecker
+      validation-query-timeout: 5                       # 连接校验超时时间(s)，使用 isValid 校验时必须 >= 0
+      test-while-idle: true                             # 空闲时检测连接可用性（推荐开启）
+      test-on-borrow: false                             # 借出时检测，影响性能，关闭
+      test-on-return: false                             # 归还时检测，影响性能，关闭
+      # ------------------------------ 监控 Filter ------------------------------
+      filter:
+        # SQL 监控 + 慢 SQL：监控页"SQL监控"的数据来源
+        stat:
+          enabled: true
+          merge-sql: true                                # 合并参数不同的同类 SQL，便于统计
+          log-slow-sql: true                             # 打印慢 SQL 日志
+          slow-sql-millis: 3000                          # 慢 SQL 阈值(ms)，超过则记录
+        # 连接/SQL 异常日志：正常 SQL 不输出，避免日志刷屏
+        slf4j:
+          enabled: true
+          connection-log-enabled: false
+          connection-log-error-enabled: true
+          statement-log-enabled: false
+          statement-log-error-enabled: true
+          result-set-log-enabled: false
+          result-set-log-error-enabled: true
+        # WallFilter(SQL 防火墙) 规则：是否启用由 DruidConfig 按数据库类型自动决定
+        # MySQL/PostgreSQL 等 Druid 支持的数据库自动开启；达梦(dm)等不支持的数据库自动跳过并打印告警
+        wall:
+          config:
+            multi-statement-allow: false                 # 禁止一次执行多条 SQL
+            none-base-statement-allow: false             # 禁止非基本语句（防止通过注释/特殊语法绕过）
+            comment-allow: false                         # 禁止 SQL 中出现注释，防止注释注入
+            metadata-allow: true                         # 允许读取 JDBC 元数据（MyBatis/驱动需要）
+            select-all-column-allow: true                # 允许 select *（如需强制列出字段可改为 false）
+            # 更严格的限制请审计完项目 SQL 后再开启，例如：
+            # delete-where-none-check: true              # 注意：BizDistrictMapper.clearTable 是无 where 的 delete
+            # update-where-none-check: true
+      # ------------------------------ 监控页面 ------------------------------
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: druid                            # 监控页登录账号，生产环境请修改
+        login-password: Druid@1234                       # 监控页登录密码，生产环境请修改
+        reset-enable: false                              # 关闭监控页"重置"按钮，防止数据被误清空
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.jpeg,*.png,*.css,*.ico,/druid/*"
+        session-stat-enable: true                        # 统计 Session
+        session-stat-max-count: 1000
+        profile-enable: false                            # 监控页展示每个 URL 的调用明细，开销较大，按需开启
+      # Spring 方法监控（监控页"Spring监控"），按实际包名调整
+      aop-patterns: com.akm.springboot3.web.*.service.*
   jackson:
 #     date-format: yyyy-MM-dd HH:mm:ss 启用加密后会失效，所以注释，所有日期字段需要使用@JsonFormat格式化或或通知前端格式化
     time-zone: GMT+8
