@@ -39,7 +39,7 @@ export default {
             label: '所属租户',
             options: [],
           },
-          { type: 'inputNumber', prop: 'orders', label: '排序（倒序）' },
+          { type: 'inputNumber', prop: 'orders', label: '排序(倒序)' },
           { type: 'textarea', prop: 'remark', label: '备注' },
           {
             type: 'radioDict',

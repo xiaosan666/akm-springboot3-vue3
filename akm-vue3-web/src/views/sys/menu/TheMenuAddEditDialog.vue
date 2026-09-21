@@ -23,7 +23,7 @@
           <el-input v-model="data.icon" clearable />
           <a
             style="width: 50px; padding-left: 8px"
-            href="https://element.eleme.cn/#/zh-CN/component/icon"
+            href="https://element-plus.org/zh-CN/component/icon"
             target="_blank"
           >
             图标库
@@ -43,7 +43,7 @@
       <el-form-item label="是否启用">
         <akm-radio-dict code="enable_status_op" :value.sync="data.enable"></akm-radio-dict>
       </el-form-item>
-      <el-form-item prop="orders" label="排序（倒序）：">
+      <el-form-item prop="orders" label="排序(倒序)：">
         <el-input-number v-model="data.orders" />
       </el-form-item>
     </el-form>

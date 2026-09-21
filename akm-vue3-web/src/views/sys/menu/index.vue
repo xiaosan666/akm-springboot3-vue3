@@ -88,15 +88,12 @@
 <script>
 import TheMenuAddEditDialog from '@/views/sys/menu/TheMenuAddEditDialog.vue'
 import TheMenuApiTreeDialog from '@/views/sys/menu/TheMenuApiTreeDialog.vue'
-import { Position, Search } from '@element-plus/icons-vue'
 
 export default {
   name: 'SysMenu',
   components: {
     TheMenuApiTreeDialog,
     TheMenuAddEditDialog,
-    Position,
-    Search,
   },
   data() {
     return {
@@ -125,7 +122,7 @@ export default {
             width: 90,
             className: 'akm-no-padding',
           },
-          { prop: 'orders', label: '排序（倒序）', width: 110 },
+          { prop: 'orders', label: '排序(倒序)', width: 110 },
           {
             type: 'slot',
             prop: 'enable',

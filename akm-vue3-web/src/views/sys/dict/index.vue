@@ -83,7 +83,7 @@ export default {
           { prop: 'label', label: '名称（label）' },
           { prop: 'value', label: '值（value）' },
           { prop: 'code', label: '值（code）', showOverflowTooltip: true },
-          { prop: 'orders', label: '排序（倒序）', width: 110 },
+          { prop: 'orders', label: '排序(倒序)', width: 110 },
           {
             type: 'slot',
             prop: 'enable',
@@ -137,7 +137,7 @@ export default {
             label: '字典值（code）',
             placeholder: '形如：man',
           },
-          { type: 'inputNumber', prop: 'orders', label: '排序（倒序）' },
+          { type: 'inputNumber', prop: 'orders', label: '排序(倒序)' },
           {
             type: 'radioDict',
             code: 'enable_status_op',

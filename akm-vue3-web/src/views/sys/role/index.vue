@@ -107,7 +107,7 @@ export default {
           { prop: 'code', label: '角色编码' },
           { prop: 'dataScopeOrgName', label: '数据权限' },
           { prop: 'remark', label: '备注', showOverflowTooltip: true },
-          { prop: 'orders', label: '排序（倒序）', width: 110 },
+          { prop: 'orders', label: '排序(倒序)', width: 110 },
           {
             type: 'slot',
             prop: 'enable',
