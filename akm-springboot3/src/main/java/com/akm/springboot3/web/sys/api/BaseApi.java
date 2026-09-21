@@ -362,8 +362,9 @@ public class BaseApi {
             CacheUser user = CacheUtils.getNoPrefix(key);
             if (user != null) {
                 // 清楚敏感数据
-                user.setUserId(null);
-                userList.add(user);
+                CacheUser onlineUser = new CacheUser(user);
+                onlineUser.setUserId(null);
+                userList.add(onlineUser);
             }
         });
         return userList;

@@ -20,4 +20,19 @@ public class CacheUser {
     private String realname;
     private String orgId;
     private List<SysRoleBaseInfo> roleList;
+
+    public CacheUser() {
+    }
+
+    public CacheUser(CacheUser source) {
+        this.token = source.token;
+        this.tenantId = source.tenantId;
+        this.tenantCode = source.tenantCode;
+        this.clientType = source.clientType;
+        this.userId = source.userId;
+        this.username = source.username;
+        this.realname = source.realname;
+        this.orgId = source.orgId;
+        this.roleList = source.roleList;
+    }
 }
