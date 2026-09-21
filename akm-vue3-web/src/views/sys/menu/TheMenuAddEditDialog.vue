@@ -19,15 +19,9 @@
         ></el-cascader>
       </el-form-item>
       <el-form-item prop="icon" label="图标：">
-        <div style="display: flex">
+        <div class="akm-form-flex-row">
           <el-input v-model="data.icon" clearable />
-          <a
-            style="width: 50px; padding-left: 8px"
-            href="https://element-plus.org/zh-CN/component/icon"
-            target="_blank"
-          >
-            图标库
-          </a>
+          <a href="https://element-plus.org/zh-CN/component/icon" target="_blank">图标库</a>
         </div>
       </el-form-item>
       <el-form-item v-if="data.type === 2" prop="uri" label="路由地址">

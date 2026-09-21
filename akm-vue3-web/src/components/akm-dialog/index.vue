@@ -28,12 +28,15 @@
       </div>
       <template #footer>
         <div v-if="!(config.footer === false)" class="dialog-footer">
-          <el-button @click="cancel">
-            {{ config.cancelButtonText || '取 消' }}
-          </el-button>
-          <el-button type="primary" :loading="config.confirmLoading" @click="confirm">
-            {{ config.confirmButtonText || '确 定' }}
-          </el-button>
+          <!-- 默认使用内置按钮；父组件传入 footer 插槽时以父组件内容为准 -->
+          <slot name="footer">
+            <el-button @click="cancel">
+              {{ config.cancelButtonText || '取 消' }}
+            </el-button>
+            <el-button type="primary" :loading="config.confirmLoading" @click="confirm">
+              {{ config.confirmButtonText || '确 定' }}
+            </el-button>
+          </slot>
         </div>
       </template>
     </el-dialog>

@@ -21,7 +21,7 @@
         </el-input>
       </el-form-item>
       <el-form-item prop="code">
-        <div class="msg-input-warp">
+        <div class="akm-form-flex-row">
           <el-input v-model="form.code" placeholder="手机短信验证码" clearable></el-input>
           <the-msg-button @click="getMsg"></the-msg-button>
         </div>
@@ -194,12 +194,6 @@ export default {
 
 <style lang="scss" scoped>
 .recover-password-form {
-  .msg-input-warp {
-    display: flex;
-    button {
-      margin-left: 12px;
-    }
-  }
   .submit-button {
     width: 100%;
     font-size: 16px;

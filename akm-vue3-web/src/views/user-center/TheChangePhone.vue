@@ -3,14 +3,14 @@
   <akm-dialog :config="dialogConfig">
     <el-form ref="form" label-width="150px" :model="form" :rules="rules">
       <el-form-item v-if="step === 1" prop="oldPhoneCode" label="旧手机短信验证码：">
-        <div class="msg-input-warp">
+        <div class="akm-form-flex-row">
           <el-input v-model="form.oldPhoneCode" placeholder="短信验证码" clearable></el-input>
           <the-msg-button @click="getMsg"></the-msg-button>
         </div>
       </el-form-item>
 
       <el-form-item v-if="step === 2" label="新手机号码：" prop="newPhone">
-        <div class="msg-input-warp">
+        <div class="akm-form-flex-row">
           <el-input v-model="form.newPhone"></el-input>
           <the-msg-button @click="getMsgByPhone(form.newPhone)"></the-msg-button>
         </div>
@@ -21,9 +21,9 @@
       </el-form-item>
     </el-form>
     <template v-slot:footer>
-      <el-button @click="dialogConfig.visible = false">取 消</el-button>
+      <el-button @click="cancel">取 消</el-button>
       <el-button v-if="step === 1" type="success" @click="nextStep">下 一 步</el-button>
-      <el-button v-if="step === 2" type="success" @click="--step">上 一 步</el-button>
+      <el-button v-if="step === 2" type="success" @click="prevStep">上 一 步</el-button>
       <el-button v-if="step === 2" type="primary" @click="confirm">确 定</el-button>
     </template>
   </akm-dialog>
@@ -91,7 +91,23 @@ export default {
   },
   methods: {
     open() {
+      // 每次打开都重置步骤与表单，避免残留上一次的输入和校验状态
+      this.step = 1
+      this.form = {
+        oldPhoneCode: '',
+        newPhone: '',
+        newPhoneCode: '',
+      }
       this.dialogConfig.visible = true
+      this.$nextTick(() => {
+        this.$refs.form?.clearValidate()
+      })
+    },
+    cancel() {
+      this.dialogConfig.visible = false
+    },
+    prevStep() {
+      this.step = 1
     },
     async getMsg() {
       try {
@@ -167,11 +183,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.msg-input-warp {
-  display: flex;
-  button {
-    margin-left: 12px;
-  }
-}
-</style>

@@ -10,7 +10,7 @@
       class="change-pwd-form"
     >
       <el-form-item prop="code" label="短信验证码：">
-        <div class="msg-input-warp">
+        <div class="akm-form-flex-row">
           <el-input v-model="form.code" placeholder="手机短信验证码" clearable></el-input>
           <the-msg-button @click="getMsg"></the-msg-button>
         </div>
@@ -146,15 +146,6 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.msg-input-warp {
-  display: flex;
-  button {
-    margin-left: 12px;
-  }
-}
-</style>
 
 <style lang="scss">
 .change-pwd-form {

@@ -10,7 +10,7 @@
         >
           <span>
             <i :class="item.icon"></i>
-            <span slot="title">
+            <span>
               {{ item.name }}
             </span>
           </span>

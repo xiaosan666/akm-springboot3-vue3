@@ -21,6 +21,44 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  // el-form-item__content 本身是 flex 容器，其中的子元素不指定宽度时会被压缩成 fit-content，
+  // 导致 space-between 失效（内容挤在左侧），故显式撑满
+  width: 100%;
+}
+
+/**
+ * 表单行内的 flex 行容器（如：输入框 + 按钮/链接、输入框 + 提示）
+ *
+ * 为什么需要它：el-form-item__content 的样式是 display:flex; flex-wrap:wrap，
+ * 因此写在表单项里的普通 div 会成为一个 flex item，未显式指定宽度时其宽度为 fit-content，
+ * 内部 el-input 的 width:100%（--el-input-width）就成了循环依赖的百分比，
+ * 最终退化为浏览器默认输入框宽度（表现为输入框很窄、右侧内容被挤压换行）。
+ */
+.akm-form-flex-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+
+  // 主控件占满剩余宽度，min-width:0 保证内容过长时仍可正常收缩
+  > .el-input,
+  > .el-select,
+  > .el-input-number,
+  > .el-date-editor,
+  > .el-autocomplete,
+  > .el-cascader,
+  > .el-tree-select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  // 附属元素（按钮、链接等）不参与收缩、不换行
+  > .el-button,
+  > .el-link,
+  > a {
+    flex: none;
+    white-space: nowrap;
+  }
 }
 
 .akm-large-button {
