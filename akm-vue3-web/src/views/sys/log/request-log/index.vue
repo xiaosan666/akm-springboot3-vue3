@@ -189,11 +189,6 @@ export default {
         params: { id: row.id },
       })
     },
-    onStartTimeRangeChange(value) {
-      this.formData.startTimeBegin = new Date(value[0]).getTime()
-      this.formData.startTimeEnd = new Date(value[1]).getTime()
-      this.query()
-    },
     excelExport() {
       this.loading = true
       this.$http

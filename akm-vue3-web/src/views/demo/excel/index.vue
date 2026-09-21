@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span style="color: red; margin-left: 10px; font-size: 12px">
+    <span style="color: red; margin-left: 10px; font-size: 14px">
       注：导入不是直接上传文件到后台接口，是先把excel上传到文件服务器，
       得到文件key，然后调用导入接口，服务端根据文件key下载excel导入数据
     </span>

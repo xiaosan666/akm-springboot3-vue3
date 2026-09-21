@@ -182,7 +182,7 @@ public class BaseApi {
 
         AssertUtils.isTrue(user.getEnable() == 1, "账号已被禁用");
         AssertUtils.isTrue(user.getDelFlag() == 0, "账号已失效");
-        if (user.getExpiredTime() != null) {
+        if (akmConfig.getAccountEffectiveDays() != -1 && user.getExpiredTime() != null) {
             AssertUtils.isTrue(new Date().compareTo(user.getExpiredTime()) < 0, "账号已过期");
         }
 
