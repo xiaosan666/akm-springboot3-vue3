@@ -66,3 +66,4 @@ build/
 logs/
 .DS_Store
 
+.workbuddy
