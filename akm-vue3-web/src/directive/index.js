@@ -1,4 +1,3 @@
-import { dialogDrag } from './dialogDrag'
 import { has } from './permission'
 
 // 注册一个全局自定义指令 `v-focus`
@@ -77,6 +76,5 @@ export function registerDirectives(app) {
   app.directive('text-center', textCenter)
   app.directive('text-left', textLeft)
   app.directive('text-right', textRight)
-  app.directive('dialogDrag', dialogDrag)
   app.directive('has', has)
 }

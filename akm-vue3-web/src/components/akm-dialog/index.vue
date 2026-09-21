@@ -1,16 +1,19 @@
 <template>
   <div class="akm-dialog-component">
     <el-dialog
-      v-dialog-drag
       :model-value="config.visible"
       :close-on-click-modal="false"
       :show-close="false"
       :width="width"
       :top="top"
+      :draggable="draggable"
+      :overflow="overflow"
+      :fullscreen="isFullscreen"
       @update:model-value="handleVisibleChange"
+      @closed="resetFullscreen"
     >
       <template #header>
-        <div class="dialog-title">
+        <div class="dialog-title" @dblclick="toggleFullscreen">
           <div class="title">{{ config.title }}</div>
           <div class="back" @click="back">
             <el-icon><Back /></el-icon>
@@ -66,7 +69,9 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      isFullscreen: false,
+    }
   },
   computed: {
     width() {
@@ -76,6 +81,12 @@ export default {
     top() {
       let top = this.config.top || '12vh'
       return this.$utils.isNumber(top) ? top + 'vh' : top
+    },
+    draggable() {
+      return this.config.draggable !== false
+    },
+    overflow() {
+      return this.config.overflow !== false
     },
   },
   methods: {
@@ -91,6 +102,12 @@ export default {
     },
     confirm() {
       this.$emit('confirm')
+    },
+    toggleFullscreen() {
+      this.isFullscreen = !this.isFullscreen
+    },
+    resetFullscreen() {
+      this.isFullscreen = false
     },
   },
 }
