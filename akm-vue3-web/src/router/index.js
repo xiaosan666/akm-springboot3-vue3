@@ -76,14 +76,15 @@ const router = createRouter({
       name: 'RunLog',
       component: () =>
         import(/* webpackChunkName: "log" */ '@/views/sys/log/run-log/index.vue'),
-      meta: { title: '运行日志', logFileName: 'all_log.log' },
+      // openInNewTab：点击菜单时在新浏览器标签页打开，由 TheAsideMenuItem.select 统一处理
+      meta: { title: '运行日志', logFileName: 'all_log.log', openInNewTab: true },
     },
     {
       path: '/log/error',
       name: 'ErrorLog',
       component: () =>
         import(/* webpackChunkName: "log" */ '@/views/sys/log/run-log/index.vue'),
-      meta: { title: '错误日志', logFileName: 'err_log.log' },
+      meta: { title: '错误日志', logFileName: 'err_log.log', openInNewTab: true },
     },
     {
       path: '/:pathMatch(.*)*',

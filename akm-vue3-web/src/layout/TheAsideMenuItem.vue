@@ -32,12 +32,22 @@ export default {
   methods: {
     select(menu) {
       const permissionStore = usePermissionStore()
-      permissionStore.setActiveMenu(menu)
 
       if (menu.uri.startsWith('http')) {
+        permissionStore.setActiveMenu(menu)
         window.open(menu.uri)
         return
       }
+
+      // 路由 meta.openInNewTab 为 true 时，在新浏览器标签页打开
+      const { href, meta } = this.$router.resolve(menu.uri)
+      if (meta.openInNewTab) {
+        // 当前页未发生跳转，不改变左侧菜单高亮
+        window.open(href, '_blank', 'noopener')
+        return
+      }
+
+      permissionStore.setActiveMenu(menu)
       this.$router.push(menu.uri)
     },
   },
