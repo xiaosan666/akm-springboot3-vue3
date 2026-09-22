@@ -131,14 +131,14 @@ export default {
     }
   }
   .dialog-body {
-    padding: 20px;
+    padding: 16px;
     max-height: 600px;
     overflow: auto;
   }
   .dialog-footer {
     border-top: 1px solid var(--el-border-color);
     text-align: right;
-    padding: 12px 20px;
+    padding: 12px 16px 0;
   }
 }
 </style>

@@ -79,7 +79,8 @@ export default {
     },
     loadPlugin() {
       // 异步同时加载多个插件
-      AMap.plugin(['AMap.Geocoder', 'AMap.Autocomplete', 'AMap.ToolBar'], () => {
+      // 注意：JS API 2.0 中输入提示插件名由 AMap.Autocomplete 变更为 AMap.AutoComplete（大写 C）
+      AMap.plugin(['AMap.Geocoder', 'AMap.AutoComplete', 'AMap.ToolBar'], () => {
         // 地理编码与逆地理编码插件
         // https://lbs.amap.com/api/javascript-api/guide/services/geocoder/
         this.mapGeocoder = new AMap.Geocoder({
@@ -88,14 +89,15 @@ export default {
         })
 
         // 插件：输入提示与POI搜索
-        // https://lbs.amap.com/api/javascript-api/guide/services/autocomplete/
-        this.mapAutoComplete = new AMap.Autocomplete({
+        // https://lbs.amap.com/api/javascript-api-v2/guide/services/autocomplete
+        this.mapAutoComplete = new AMap.AutoComplete({
           city: '全国',
           input: 'searchInput' + this.config.id,
           output: 'searchOutput' + this.config.id,
         })
 
-        AMap.event.addListener(this.mapAutoComplete, 'select', e => {
+        // 2.0 推荐使用实例的 on/off 绑定事件
+        this.mapAutoComplete.on('select', e => {
           let location = e.poi.location
           if (location) {
             this.drawMarker(location.lng, location.lat)
@@ -114,7 +116,11 @@ export default {
     },
     // 根据坐标绘制点
     drawMarker(lng, lat) {
-      if (!lng || !lat) {
+      // 注意：config.location 的 immediate watcher 会在 mounted 之前触发，
+      // 此时 this.map 还是 null（地图尚未初始化），必须先返回，否则 clear() 会报
+      // TypeError: Cannot read properties of null (reading 'clearMap')
+      // 初始位置的绘制由 map 的 complete 事件负责，不会漏掉。
+      if (!this.map || !lng || !lat) {
         return
       }
       this.clear()
@@ -138,12 +144,18 @@ export default {
       })
     },
     getLocation() {
+      debugger
       let address = document.getElementById('searchInput' + this.config.id).value
       this.mapGeocoder.getLocation(address, (status, result) => {
         if (status === 'complete' && result.info === 'OK') {
+          debugger
           let res = result.geocodes[0]
           this.drawMarker(res.location.lng, res.location.lat)
           this.publicLocation(res.location.lng, res.location.lat, res.formattedAddress)
+        } else {
+          // 高德服务类插件鉴权失败（如 USERKEY_PLAT_NOMATCH / INVALID_USER_SCODE）时
+          // status 为 error 且 result 可能为 undefined，这里提示出来，避免“点搜索没反应”
+          this.$helper.errorMessage('地址解析失败：' + ((result && result.info) || status))
         }
       })
     },
