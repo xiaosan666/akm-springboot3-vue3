@@ -32,7 +32,9 @@
         </div>
       </template>
       <template #column-icon="{ row }">
-        <i :class="['menu-icon', row.icon]"></i>
+        <el-icon v-if="$helper.resolveIcon(row.icon)" class="menu-icon">
+          <component :is="$helper.resolveIcon(row.icon)" />
+        </el-icon>
       </template>
       <template #column-type="{ row }">
         <el-tag v-if="row.type === 1" type="info">目录</el-tag>

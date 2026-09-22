@@ -6,7 +6,7 @@
     :class="{ 'akm-menu-active': isActive }"
   >
     <template v-slot:title>
-      <el-icon><Menu /></el-icon>
+      <el-icon><component :is="iconComponent" /></el-icon>
       <span>{{ menu.name }}</span>
     </template>
     <the-aside-menu-item
@@ -31,6 +31,7 @@
   </el-menu-item>
 </template>
 <script>
+import { Menu } from '@element-plus/icons-vue'
 import { usePermissionStore } from '@/stores/permission'
 export default {
   name: 'TheAsideMenuItem',
@@ -41,6 +42,10 @@ export default {
     },
   },
   computed: {
+    // 菜单配置的图标，解析失败时兜底使用 Menu，避免无图标导致排版错位
+    iconComponent() {
+      return this.$helper.resolveIcon(this.menu.icon) || Menu
+    },
     isActive() {
       const permissionStore = usePermissionStore()
       return permissionStore.activeMenu?.id === this.menu.id

@@ -1,4 +1,5 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { usePermissionStore } from '@/stores/permission'
 import router from '@/router'
 import api from '@/providers/api'
@@ -174,7 +175,28 @@ const getAndCacheRouteParams = route => {
   return params
 }
 
+/**
+ * 将配置的图标名解析为 Element Plus 图标组件，解析失败返回 null（调用方不渲染即可）
+ * 兼容历史数据中 element-ui 的写法，如：el-icon-menu -> Menu
+ * @param icon 图标名，如：Menu、menu、el-icon-menu
+ * @returns {object|null} Element Plus 图标组件，可直接用于 <component :is="">
+ * @example
+ * <el-icon v-if="iconComponent"><component :is="iconComponent" /></el-icon>
+ * computed: { iconComponent() { return this.$helper.resolveIcon(this.menu.icon) } }
+ */
+const resolveIcon = icon => {
+  if (!icon) {
+    return null
+  }
+  const name = String(icon)
+    .trim()
+    .replace(/^el-icon-/, '')
+    .replace(/(^|[-_])(\w)/g, (_, __, char) => char.toUpperCase())
+  return ElementPlusIconsVue[name] || null
+}
+
 export default {
+  resolveIcon, // 图标名解析为 Element Plus 图标组件
   successMessage, // 显示成功类消息
   errorMessage, // 显示错误类消息
   warningMessage, //  显示警告类消息
