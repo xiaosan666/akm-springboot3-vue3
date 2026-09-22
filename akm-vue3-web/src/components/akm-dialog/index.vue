@@ -140,21 +140,15 @@ export default {
     text-align: right;
     padding: 12px 16px 0;
   }
-}
-</style>
 
-<style lang="scss">
-/**
- * 说明（改动原因）：
- * 这里必须是「非 scoped 的全局块」，因为 .el-dialog__header / .el-dialog__body
- * 由 el-dialog 内部渲染，不带本组件的 scoped 属性（data-v-xxx），写在 scoped 块里命中不了。
- * 而非 scoped 块中 :deep() 不会被 @vue/compiler-sfc 编译（只有 scoped 块才会），
- * 会被原样输出成无效伪类选择器，整条规则被浏览器丢弃 —— 这就是背景色失效的原因。
- * el-dialog 默认 appendToBody=false（teleport 被禁用），DOM 就在 .akm-dialog-component 内，
- * 所以直接写普通后代选择器即可。
- */
-.akm-dialog-component {
-  .el-dialog__header {
+  /**
+   * 说明：
+   * el-dialog 内部渲染的 .el-dialog__header / .el-dialog__body 不带本组件的 data-v-xxx，
+   * 直接写在 scoped 块里命中不了。使用 :deep() 让 Vue 编译器去掉作用域属性选择器，
+   * 编译为 .akm-dialog-component[data-v-xxx] .el-dialog__header 等，可命中 Element Plus 内部 DOM。
+   * el-dialog 默认 appendToBody=false（teleport 禁用），DOM 在 .akm-dialog-component 内。
+   */
+  :deep(.el-dialog__header) {
     background: #e1e1e1;
     /* .el-dialog 自带 16px padding，用负边距抵消，让灰底铺满弹窗顶部（对齐 vue2 版效果） */
     margin: calc(-1 * var(--el-dialog-padding-primary)) calc(-1 * var(--el-dialog-padding-primary))
@@ -162,7 +156,7 @@ export default {
     /* 补回 header 原有内边距，保证标题位置与改动前完全一致 */
     padding: var(--el-dialog-padding-primary);
   }
-  .el-dialog__body {
+  :deep(.el-dialog__body) {
     padding: 0;
   }
 }
